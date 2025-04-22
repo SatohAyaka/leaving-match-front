@@ -7,7 +7,7 @@ export async function getStayers(): Promise<Stayer[]> {
     const response = await fetch(`${BASE_URL}${GET_STAYERS_API}`);
 
     if (!response.ok) {
-        throw new Error(`APIリクエスト失敗: ${response.status}`);
+        throw new Error(`滞在者情報取得失敗: ${response.status}`);
     }
 
     const data: Stayer[] = await response.json();

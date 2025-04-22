@@ -11,6 +11,6 @@ export async function getStayers(): Promise<number[]> {
     }
 
     const stayersData: Stayer[] = await response.json();
-    const userId = stayersData.map((stayer) => stayer.id)
+    const userId: number[] = stayersData.map((stayer) => stayer.id)
     return userId;
 }

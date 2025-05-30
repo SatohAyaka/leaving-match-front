@@ -1,7 +1,8 @@
+import { Stayer } from "@/src/types/Stayer";
+
 const BASE_URL = process.env.REACT_APP_STAY_WATCH_URL;
 const GET_STAYERS = process.env.REACT_APP_STAYERS_API;
 
-import Stayer from "../../types/Stayer";
 
 export async function getStayers(): Promise<number[]> {
     const response = await fetch(`${BASE_URL}${GET_STAYERS}`);

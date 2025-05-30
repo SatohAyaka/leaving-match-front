@@ -18,6 +18,7 @@ export async function getPredicton(weekDay: number, stayers: number[]) {
 
     const usersPrediction: GetPrediction = await response.json();
     const predictions: Prediction[] = usersPrediction.result;
+    // const predictionTimes: string[] = predictions.map(p => p.predictionTime);
 
     return predictions;
 }

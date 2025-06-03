@@ -2,9 +2,9 @@
 
 import PredictionTimes from "@/src/features/getPrediction/PredictionTimes";
 
-// ホーム
+// 予測時刻一覧
 const Home = () => {
-  return <PredictionTimes />;
+    return <PredictionTimes />;
 };
 
 export default Home;

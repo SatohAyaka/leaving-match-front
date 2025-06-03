@@ -40,18 +40,6 @@ export default async function Home() {
   return (
     <><main className="p-4 mt-5">
       <h1 className="text-2xl font-bold mb-4">滞在者情報一覧</h1>
-      <h3>stayer</h3>
-      <ul className="space-y-2">
-        {stayerPrediction
-          .filter((stayerPrediction) => stayerPrediction.predictionTime != null && stayerPrediction.predictionTime != '')//滞在データが足りないものを除く
-          .map((stayerPrediction) => (
-            <li key={stayerPrediction.userId} className="p-4 border rounded">
-              <p><strong>ID:</strong> {stayerPrediction.userId}</p>
-              <p><strong>予測時刻:</strong>{stayerPrediction.predictionTime}</p>
-            </li>
-          ))}
-      </ul>
-      <hr></hr>
       <h3>AllUser</h3>
       <ul className="space-y-2">
         {allPrediction
@@ -60,6 +48,18 @@ export default async function Home() {
             <li key={prediction.userId} className="p-4 border rounded">
               <p><strong>ID:</strong> {prediction.userId}</p>
               <p><strong>予測時刻:</strong>{prediction.predictionTime}</p>
+            </li>
+          ))}
+      </ul>
+      <hr></hr>
+      <h3>stayer</h3>
+      <ul className="space-y-2">
+        {stayerPrediction
+          .filter((stayerPrediction) => stayerPrediction.predictionTime != null && stayerPrediction.predictionTime != '')//滞在データが足りないものを除く
+          .map((stayerPrediction) => (
+            <li key={stayerPrediction.userId} className="p-4 border rounded">
+              <p><strong>ID:</strong> {stayerPrediction.userId}</p>
+              <p><strong>予測時刻:</strong>{stayerPrediction.predictionTime}</p>
             </li>
           ))}
       </ul>

@@ -1,4 +1,4 @@
-type Stayer = {
+export type Stayer = {
     id: number;
     name: string;
     room: string;
@@ -11,4 +11,13 @@ type Stayer = {
     ];
 };
 
-export default Stayer;
+export type User = {
+    id: number;
+    name: string;
+    tags: [
+        {
+            id: number;
+            name: string;
+        },
+    ];
+}

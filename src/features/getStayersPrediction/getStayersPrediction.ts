@@ -1,5 +1,5 @@
 const BASE_URL = process.env.REACT_APP_STAY_WATCH_URL;
-const GET_PREDICTION = process.env.REACT_APP_PREDICTION_API;
+const GET_PREDICTION = process.env.REACT_APP_PREDICTION_TIME_API;
 
 import { Prediction, GetPrediction } from "@/src/types/Prediction";
 

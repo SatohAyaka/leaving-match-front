@@ -8,6 +8,11 @@ export type GetPrediction = {
     result: Prediction[]
 }
 
+export type usePrediction = {
+    userId: number,
+    predictionTime: number
+}
+
 export type Probability = {
     userId: number,
     probability: number

@@ -1,44 +1,31 @@
 import { getAllUsers } from "../getStayersID/getAllUserData";
-import { getComingPredictions } from "../getStayersID/getComingPredictions";
-import { getStayers } from "../getStayersID/getStayersData";
+// import { getComingPredictions } from "../getStayersID/getComingPredictions";
 import { Prediction } from "../../types/Prediction";
 import { findMaxCountInterval } from "../recommendedDepartureTime/getSection";
 import { numberTimeToString } from "../recommendedDepartureTime/numberTimeToString";
 import { getDayOfWeek } from "../getStayersPrediction/getDayOfWeek";
 import { getPredicton } from "../getStayersPrediction/getStayersPrediction";
+import { getStayers } from "../getStayersID/getStayersData";
+import { timeSort } from "../recommendedDepartureTime/TimeSort";
 
 
 export default async function PredictionTimes() {
     const weekDay: number = getDayOfWeek();
     const stayers: number[] = await getStayers();
     const allusers: number[] = await getAllUsers();
-    const comingUser: number[] = await getComingPredictions(weekDay, allusers);
+    // const comingUser: number[] = await getComingPredictions(weekDay, allusers);
 
     const allPrediction: Prediction[] = await getPredicton(weekDay, allusers);
-    const prediction: Prediction[] = await getPredicton(weekDay, comingUser);
-    const [start, end, count] = findMaxCountInterval(prediction);
+    // const prediction: Prediction[] = await getPredicton(weekDay, comingUser);
+    const prediction: Prediction[] = await getPredicton(weekDay, stayers);
+    const sored: number[] = timeSort(prediction);
+    const [start, end, count] = findMaxCountInterval(sored, 30);
+    const [hourstart, hourend, hourcount] = findMaxCountInterval(sored, 60);
     const startTime = numberTimeToString(start);
     const endTime = numberTimeToString(end);
-    // if (stayers === null) {
-    //   return (
-    //     <><main className="p-4 mt-5">
-    //       <h1>滞在者がいません</h1>
-    //       <hr></hr>
-    //       <h3>allUser</h3>
-    //       <ul className="space-y-2">
-    //         {prediction
-    //           .filter((prediction) => prediction.predictionTime != null && prediction.predictionTime != '')//滞在データが足りないものを除く
-    //           .map((prediction) => (
-    //             <li key={prediction.userId} className="p-4 border rounded">
-    //               <p><strong>ID:</strong> {prediction.userId}</p>
-    //               <p><strong>予測時刻:</strong>{prediction.predictionTime}</p>
-    //             </li>
-    //           ))}
-    //       </ul>
-    //     </main>
-    //     </>
-    //   )
-    // } else {
+    const hourStartTime = numberTimeToString(hourstart);
+    const hourEndTime = numberTimeToString(hourend);
+
     const stayerPrediction: Prediction[] = await getPredicton(weekDay, stayers);
     return (
         <><main className="p-4 mt-5">
@@ -78,8 +65,10 @@ export default async function PredictionTimes() {
                         </li>
                     ))}
             </ul>
-            <p>{startTime}〜{endTime}</p>
+            <p>30分区間{startTime}〜{endTime}</p>
             <p>{count}人</p>
+            <p>1時間区間{hourStartTime}〜{hourEndTime}</p>
+            <p>{hourcount}人</p>
         </main></>
     );
     // }

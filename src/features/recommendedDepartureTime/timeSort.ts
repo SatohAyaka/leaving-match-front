@@ -1,10 +1,6 @@
-import { Prediction } from "@/src/types/Prediction";
-import { stringTimeToNumber } from "./stringTimeToNumber";
+import { usePrediction } from "@/src/types/Prediction";
 
-export const timeSort = (prediction: Prediction[]) => {
-    const predictionTimes = prediction.map((prediction) => (prediction.predictionTime));
-    // 時刻をstring→number（hour*60+minute）
-    const timeToNumber: number[] = predictionTimes.map(stringTimeToNumber
-    ).sort((a, b) => a - b);
-    return timeToNumber;
+export const timeSort = (prediction: usePrediction[]) => {
+    const predictionTimes = prediction.map((prediction) => (prediction.predictionTime)).sort((a, b) => a - b);
+    return predictionTimes;
 }

@@ -17,12 +17,14 @@ export async function getPredicton(weekDay: number, stayers: number[]) {
         throw new Error(`予測帰宅時刻取得失敗: ${response.status}`);
     }
 
-    const usersPrediction: GetPrediction = await response.json();
-    const predictions: Prediction[] = usersPrediction.result;
-    const predictionNumbers: usePrediction[] = predictions.map((predictions) => ({
-        ...predictions,
-        predictionTime: stringTimeToNumber(predictions.predictionTime),
-    }));
+    const usersPrediction: GetPrediction = await response.json(); //取得JSON
+    const predictions: Prediction[] = usersPrediction.result; //JSONから中身のみ取り出し
+    const predictionNumbers: usePrediction[] = predictions
+        .filter(prediction => prediction.predictionTime)
+        .map((predictions) => ({
+            ...predictions,
+            predictionTime: stringTimeToNumber(predictions.predictionTime),
+        }));
     // const predictionTimes: string[] = predictions.map(p => p.predictionTime);
 
     return predictionNumbers;

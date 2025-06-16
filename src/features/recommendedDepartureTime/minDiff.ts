@@ -1,16 +1,16 @@
-export function minDiff(SectionMembers: number[]): [number[], number] {
-    if (SectionMembers.length < 2) return [[], NaN];
+export function minDiff(SectionMembersPrediction: number[]): [number[], number] {
+    if (SectionMembersPrediction.length < 2) return [[], NaN];
 
 
     let minDiff = Infinity;
-    for (let i = 1; i < SectionMembers.length; i++) {
-        minDiff = Math.min(minDiff, SectionMembers[i] - SectionMembers[i - 1]);
+    for (let i = 1; i < SectionMembersPrediction.length; i++) {
+        minDiff = Math.min(minDiff, SectionMembersPrediction[i] - SectionMembersPrediction[i - 1]);
     }
 
     const members: number[] = [];
-    for (let i = 1; i < SectionMembers.length; i++) {
-        if (SectionMembers[i] - SectionMembers[i - 1] === minDiff) {
-            members.push(SectionMembers[i - 1], SectionMembers[i]);
+    for (let i = 1; i < SectionMembersPrediction.length; i++) {
+        if (SectionMembersPrediction[i] - SectionMembersPrediction[i - 1] === minDiff) {
+            members.push(SectionMembersPrediction[i - 1], SectionMembersPrediction[i]);
         }
     }
 

@@ -1,4 +1,4 @@
-import PredictionTimes from "@/src/features/getPrediction/PredictionTimes";
+import PredictionTimes from "@/src/features/getPrediction/components/PredictionTimes";
 
 // ホーム
 const Home = () => {

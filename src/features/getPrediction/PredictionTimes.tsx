@@ -9,7 +9,7 @@ import { getStayers } from "../getStayersID/getStayersData";
 import { timeSort } from "../recommendedDepartureTime/timeSort";
 import { minDiff } from "../recommendedDepartureTime/minDiff";
 import { stayerPredictions } from "../getStayersPrediction/stayerFilter";
-import { getAverage } from "../recommendedDepartureTime/average";
+import { getAverage } from "../recommendedDepartureTime/weightingAverage";
 
 
 export default async function PredictionTimes() {
@@ -24,12 +24,12 @@ export default async function PredictionTimes() {
     const stayerPrediction: usePrediction[] = stayerPredictions(allPrediction, stayers)
     const sored: number[] = timeSort(stayerPrediction);
     const [start, end, count] = findMaxCountInterval(sored, 30);
-    const [hourstart, hourend, hourcount] = findMaxCountInterval(sored, 60);
-    const [members, mindiff] = minDiff(sored);
+    // const [hourstart, hourend, hourcount] = findMaxCountInterval(sored, 60);
+    const [members, mindiff] = minDiff(sored, start, end);
     const startTime = numberTimeToString(start);
     const endTime = numberTimeToString(end);
-    const hourStartTime = numberTimeToString(hourstart);
-    const hourEndTime = numberTimeToString(hourend);
+    // const hourStartTime = numberTimeToString(hourstart);
+    // const hourEndTime = numberTimeToString(hourend);
     const average = getAverage(members);
 
     // const stayerPrediction: usePrediction[] = await getPredicton(weekDay, stayers);
@@ -73,8 +73,8 @@ export default async function PredictionTimes() {
             </ul> */}
             <p>30分区間{startTime}〜{endTime}</p>
             <p>{count}人</p>
-            <p>1時間区間{hourStartTime}〜{hourEndTime}</p>
-            <p>{hourcount}人</p>
+            {/* <p>1時間区間{hourStartTime}〜{hourEndTime}</p>
+            <p>{hourcount}人</p> */}
             <ul className="space-y-2">
                 {members.map((m, i) => (
                     <li key={i}>{

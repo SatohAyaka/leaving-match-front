@@ -1,12 +1,16 @@
-export function minDiff(SectionMembersPrediction: number[]): [number[], number] {
+export function minDiff(SectionMembersPrediction: number[], start: number, end: number): [number[], number] {
     if (SectionMembersPrediction.length < 2) return [[], NaN];
 
 
+    //数値化した時刻データの最短距離を調べる
     let minDiff = Infinity;
     for (let i = 1; i < SectionMembersPrediction.length; i++) {
-        minDiff = Math.min(minDiff, SectionMembersPrediction[i] - SectionMembersPrediction[i - 1]);
+        if (start < SectionMembersPrediction[i - 1] && SectionMembersPrediction[i] < end) {
+            minDiff = Math.min(minDiff, SectionMembersPrediction[i] - SectionMembersPrediction[i - 1]);
+        }
     }
 
+    //数値化した時刻データの最も近い点を調べる
     const members: number[] = [];
     for (let i = 1; i < SectionMembersPrediction.length; i++) {
         if (SectionMembersPrediction[i] - SectionMembersPrediction[i - 1] === minDiff) {

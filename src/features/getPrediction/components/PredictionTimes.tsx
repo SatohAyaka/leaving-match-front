@@ -10,6 +10,7 @@ import { timeSort } from "../utils/recommendedDepartureTime/timeSort";
 import { minDiff } from "../utils/recommendedDepartureTime/minDiff";
 import { stayerPredictions } from "../utils/getStayersPrediction/stayerFilter";
 import { getAverage } from "../utils/recommendedDepartureTime/weightingAverage";
+import { findNearBuses } from "../utils/getBusTimes/findNearBusTimes";
 
 
 export default async function PredictionTimes() {
@@ -31,12 +32,16 @@ export default async function PredictionTimes() {
     // const hourStartTime = numberTimeToString(hourstart);
     // const hourEndTime = numberTimeToString(hourend);
     const average = getAverage(members, timeSort(stayerPrediction));
+    const { previous, nearest, next } = await findNearBuses(average);
+    const previousBus: string = numberTimeToString(previous);
+    const nearestsBus = numberTimeToString(nearest);
+    const nextBus = numberTimeToString(next);
 
     // const stayerPrediction: usePrediction[] = await getPredicton(weekDay, stayers);
     return (
         <><main className="p-4 mt-5">
-            <h1 className="text-2xl font-bold mb-4">滞在者情報一覧</h1>
-            <h3>AllUser</h3>
+            {/* <h1 className="text-2xl font-bold mb-4">滞在者情報一覧</h1> */}
+            {/* <h3>AllUser</h3>
             <ul className="space-y-2">
                 {allPrediction
                     .filter((prediction) => prediction.predictionTime != null)//滞在データが足りないものを除く
@@ -59,7 +64,7 @@ export default async function PredictionTimes() {
                         </li>
                     ))}
             </ul>
-            <hr></hr>
+            <hr></hr> */}
             {/* <h3>ComingUser</h3>
             <ul className="space-y-2">
                 {prediction
@@ -84,6 +89,10 @@ export default async function PredictionTimes() {
                 <li>{mindiff}分差</li>
             </ul>
             <p>コア点:{numberTimeToString(average)}</p>
+            <h3>バス時刻</h3>
+            <p>{previousBus}</p>
+            <p>{nearestsBus}</p>
+            <p>{nextBus}</p>
         </main ></>
     );
     // }

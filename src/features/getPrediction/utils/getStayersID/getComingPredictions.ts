@@ -1,7 +1,7 @@
 import { GetPredictionTime, Probability } from "@/src/types/Prediction";
 
-const BASE_URL = process.env.REACT_APP_STAY_WATCH_URL;
-const GET_PROBABILITY = process.env.REACT_APP_PREDICTION_PROBABILITY_API;
+const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
+const GET_PROBABILITY = process.env.NEXT_PUBLIC_PREDICTION_PROBABILITY_API;
 
 //全ユーザから来訪予測が50％?以上の人を抽出
 

@@ -1,5 +1,5 @@
-const BASE_URL = process.env.REACT_APP_STAY_WATCH_URL;
-const GET_PREDICTION = process.env.REACT_APP_PREDICTION_TIME_API;
+const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
+const GET_PREDICTION = process.env.NEXT_PUBLIC_PREDICTION_TIME_API;
 
 import { Prediction, GetPrediction, usePrediction } from "@/src/types/Prediction";
 import { stringTimeToNumber } from "../recommendedDepartureTime/stringTimeToNumber";

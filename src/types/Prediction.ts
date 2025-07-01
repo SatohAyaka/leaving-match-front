@@ -1,5 +1,6 @@
 export type Prediction = {
     userId: number,
+    userName: string,
     predictionTime: string
 }
 
@@ -10,6 +11,7 @@ export type GetPrediction = {
 
 export type usePrediction = {
     userId: number,
+    userName: string,
     predictionTime: number
 }
 

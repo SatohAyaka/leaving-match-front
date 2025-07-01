@@ -1,11 +1,13 @@
-import { getAllUsers } from "../getStayersID/getAllUserData";
-import { getComingPredictions } from "../getStayersID/getComingPredictions";
-import { getStayers } from "../getStayersID/getStayersData";
-import { Prediction } from "../../types/Prediction";
-import { findMaxCountInterval } from "../recommendedDepartureTime/getSection";
-import { numberTimeToString } from "../recommendedDepartureTime/numberTimeToString";
-import { getDayOfWeek } from "../getStayersPrediction/getDayOfWeek";
-import { getPredicton } from "../getStayersPrediction/getStayersPrediction";
+import { usePrediction } from "../types/Prediction";
+import { getAllUsers } from "./utils/getStayersID/getAllUserData";
+import { getComingPredictions } from "./utils/getStayersID/getComingPredictions";
+import { getStayers } from "./utils/getStayersID/getStayersData";
+import { getDayOfWeek } from "./utils/getStayersPrediction/getDayOfWeek";
+import { getPredicton } from "./utils/getStayersPrediction/getPrediction";
+import { findMaxCountInterval } from "./utils/recommendedDepartureTime/getSection";
+import { numberTimeToString } from "./utils/recommendedDepartureTime/numberTimeToString";
+import { timeSort } from "./utils/recommendedDepartureTime/timeSort";
+
 
 
 export default async function PredictionTimes() {
@@ -14,9 +16,10 @@ export default async function PredictionTimes() {
     const allusers: number[] = await getAllUsers();
     const comingUser: number[] = await getComingPredictions(weekDay, allusers);
 
-    const allPrediction: Prediction[] = await getPredicton(weekDay, allusers);
-    const prediction: Prediction[] = await getPredicton(weekDay, comingUser);
-    const [start, end, count] = findMaxCountInterval(prediction);
+    const allPrediction: usePrediction[] = await getPredicton(weekDay, allusers);
+    const prediction: usePrediction[] = await getPredicton(weekDay, comingUser);
+    const sored: number[] = timeSort(allPrediction);
+    const [start, end, count] = findMaxCountInterval(sored, 30);
     const startTime = numberTimeToString(start);
     const endTime = numberTimeToString(end);
     // if (stayers === null) {
@@ -39,14 +42,14 @@ export default async function PredictionTimes() {
     //     </>
     //   )
     // } else {
-    const stayerPrediction: Prediction[] = await getPredicton(weekDay, stayers);
+    const stayerPrediction: usePrediction[] = await getPredicton(weekDay, stayers);
     return (
         <><main className="p-4 mt-5">
             <h1 className="text-2xl font-bold mb-4">滞在者情報一覧</h1>
             <h3>AllUser</h3>
             <ul className="space-y-2">
                 {allPrediction
-                    .filter((prediction) => prediction.predictionTime != null && prediction.predictionTime != '')//滞在データが足りないものを除く
+                    .filter((prediction) => prediction.predictionTime != null)//滞在データが足りないものを除く
                     .map((prediction) => (
                         <li key={prediction.userId} className="p-4 border rounded">
                             <p><strong>ID:</strong> {prediction.userId}</p>
@@ -58,7 +61,7 @@ export default async function PredictionTimes() {
             <h3>stayer</h3>
             <ul className="space-y-2">
                 {stayerPrediction
-                    .filter((stayerPrediction) => stayerPrediction.predictionTime != null && stayerPrediction.predictionTime != '')//滞在データが足りないものを除く
+                    .filter((stayerPrediction) => stayerPrediction.predictionTime != null)//滞在データが足りないものを除く
                     .map((stayerPrediction) => (
                         <li key={stayerPrediction.userId} className="p-4 border rounded">
                             <p><strong>ID:</strong> {stayerPrediction.userId}</p>
@@ -70,7 +73,7 @@ export default async function PredictionTimes() {
             <h3>ComingUser</h3>
             <ul className="space-y-2">
                 {prediction
-                    .filter((prediction) => prediction.predictionTime != null && prediction.predictionTime != '')//滞在データが足りないものを除く
+                    .filter((prediction) => prediction.predictionTime != null)//滞在データが足りないものを除く
                     .map((prediction) => (
                         <li key={prediction.userId} className="p-4 border rounded">
                             <p><strong>ID:</strong> {prediction.userId}</p>

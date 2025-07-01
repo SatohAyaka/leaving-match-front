@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { numberTimeToString } from "../utils/recommendedDepartureTime/numberTimeToString";
 import PredictionTime from "../utils/pages/predictionTime";
+import BusTimeForm from "./form";
 
 export default function DisplayTime() {
     const [data, setData] = useState<{
@@ -14,6 +15,7 @@ export default function DisplayTime() {
         previousBus: string;
         nearestsBus: string;
         nextBus: string;
+        memberId: number[];
     } | null>(null);
 
 
@@ -26,7 +28,7 @@ export default function DisplayTime() {
 
         const interval = setInterval(() => {
             fetchData();
-        }, 12000); // 毎分実行
+        }, 60000); // 毎分実行
 
         return () => clearInterval(interval);
 
@@ -69,9 +71,19 @@ export default function DisplayTime() {
             <li>{data?.mindiff}分差</li>
         </ul>
         <p>コア点:{numberTimeToString(data.average)}</p>
+        <hr></hr>
         <h3>バス時刻</h3>
         <p>{data?.previousBus}</p>
         <p>{data?.nearestsBus}</p>
         <p>{data?.nextBus}</p>
+        <hr></hr>
+        <BusTimeForm previous={data?.previousBus} nearest={data?.nearestsBus} next={data?.nextBus} />
+        <hr></hr>
+        <div>
+            <p>対象メンバー</p>
+            {data?.memberId.map((id) => (
+                <p key={id}>{id}</p>
+            ))}
+        </div>
     </>
 }

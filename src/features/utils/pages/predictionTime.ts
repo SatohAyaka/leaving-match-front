@@ -10,6 +10,8 @@ import { minDiff } from "../recommendedDepartureTime/minDiff";
 import { numberTimeToString } from "../recommendedDepartureTime/numberTimeToString";
 import { getAverage } from "../recommendedDepartureTime/weightingAverage";
 import { findNearBuses } from "../getBusTimes/findNearBusTimes";
+import { getSectionMembers } from "../recommendedDepartureTime/getSectionMembers";
+
 
 
 const PredictionTime = async () => {
@@ -27,6 +29,10 @@ const PredictionTime = async () => {
     const previousBus: string = numberTimeToString(previous);
     const nearestsBus = numberTimeToString(nearest);
     const nextBus = numberTimeToString(next);
+    const member = getSectionMembers(start, end, stayerPrediction);
+    const memberId: number[] = member.map(
+        member => member.userId
+    );
 
     return {
         start,
@@ -36,7 +42,8 @@ const PredictionTime = async () => {
         average,
         previousBus,
         nearestsBus,
-        nextBus
+        nextBus,
+        memberId,
     };
 }
 

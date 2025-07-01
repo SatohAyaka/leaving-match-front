@@ -1,6 +1,6 @@
 import { getAllUsers } from "../utils/getStayersID/getAllUserData";
 // import { getComingPredictions } from "../getStayersID/getComingPredictions";
-import { usePrediction } from "../../../types/Prediction";
+
 import { findMaxCountInterval } from "../utils/recommendedDepartureTime/getSection";
 import { numberTimeToString } from "../utils/recommendedDepartureTime/numberTimeToString";
 import { getDayOfWeek } from "../utils/getStayersPrediction/getDayOfWeek";
@@ -11,6 +11,7 @@ import { minDiff } from "../utils/recommendedDepartureTime/minDiff";
 import { stayerPredictions } from "../utils/getStayersPrediction/stayerFilter";
 import { getAverage } from "../utils/recommendedDepartureTime/weightingAverage";
 import { findNearBuses } from "../utils/getBusTimes/findNearBusTimes";
+import { usePrediction } from "@/src/types/Prediction";
 
 
 export default async function PredictionTimes() {

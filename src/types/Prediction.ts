@@ -1,6 +1,7 @@
+import { UserData } from "./Stayer"
+
 export type Prediction = {
     userId: number,
-    userName: string,
     predictionTime: string
 }
 
@@ -10,8 +11,7 @@ export type GetPrediction = {
 }
 
 export type usePrediction = {
-    userId: number,
-    userName: string,
+    id: number,
     predictionTime: number
 }
 
@@ -26,3 +26,5 @@ export type GetPredictionTime = {
     isForward: boolean,
     result: Probability[]
 }
+
+export type userNamePrediction = usePrediction & UserData;

@@ -4,7 +4,7 @@ const GET_PREDICTION = process.env.NEXT_PUBLIC_PREDICTION_TIME_API;
 import { Prediction, GetPrediction, usePrediction } from "@/src/types/Prediction";
 import { stringTimeToNumber } from "../recommendedDepartureTime/stringTimeToNumber";
 
-export async function getPredicton(weekDay: number, stayers: number[]) {
+export async function getPredicton(weekDay: number, stayers: number[]): Promise<usePrediction[]> {
     const query = new URLSearchParams({
         weekday: weekDay.toString(),
     });
@@ -22,7 +22,7 @@ export async function getPredicton(weekDay: number, stayers: number[]) {
     const predictionNumbers: usePrediction[] = predictions
         .filter(prediction => prediction.predictionTime)
         .map((predictions) => ({
-            ...predictions,
+            id: predictions.userId,
             predictionTime: stringTimeToNumber(predictions.predictionTime),
         }));
     // const predictionTimes: string[] = predictions.map(p => p.predictionTime);

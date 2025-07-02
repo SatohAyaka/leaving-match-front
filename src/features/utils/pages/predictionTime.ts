@@ -31,7 +31,7 @@ const PredictionTime = async () => {
     const nextBus = numberTimeToString(next);
     const member = getSectionMembers(start, end, stayerPrediction);
     const memberId: number[] = member.map(
-        member => member.userId
+        member => member.id
     );
 
     return {

@@ -12,12 +12,13 @@ import { stayerPredictions } from "../utils/getStayersPrediction/stayerFilter";
 import { getAverage } from "../utils/recommendedDepartureTime/weightingAverage";
 import { findNearBuses } from "../utils/getBusTimes/findNearBusTimes";
 import { usePrediction } from "@/src/types/Prediction";
+import { UserData } from "@/src/types/Stayer";
 
 
 export default async function PredictionTimes() {
     const weekDay: number = getDayOfWeek();
     const stayers: number[] = await getStayers();
-    const allusers: number[] = await getAllUsers();
+    const allusers: UserData[] = await getAllUsers();
     // const comingUser: number[] = await getComingPredictions(weekDay, allusers);
 
     const allPrediction: usePrediction[] = await getPredicton(weekDay, allusers);

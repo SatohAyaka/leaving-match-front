@@ -11,13 +11,14 @@ import { numberTimeToString } from "../recommendedDepartureTime/numberTimeToStri
 import { getAverage } from "../recommendedDepartureTime/weightingAverage";
 import { findNearBuses } from "../getBusTimes/findNearBusTimes";
 import { getSectionMembers } from "../recommendedDepartureTime/getSectionMembers";
+import { UserData } from "@/src/types/Stayer";
 
 
 
 const PredictionTime = async () => {
     const weekDay: number = getDayOfWeek();
     const stayers: number[] = await getStayers();
-    const allusers: number[] = await getAllUsers();
+    const allusers: UserData[] = await getAllUsers();
 
     const allPrediction: usePrediction[] = await getPredicton(weekDay, allusers);
     const stayerPrediction: usePrediction[] = stayerPredictions(allPrediction, stayers); //stayerIdで絞り込み

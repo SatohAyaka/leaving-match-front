@@ -1,4 +1,4 @@
-import { usePrediction } from "@/src/types/Prediction";
+import { userNamePrediction } from "@/src/types/Prediction";
 import { getAllUsers } from "../getStayersID/getAllUserData";
 import { getStayers } from "../getStayersID/getStayersData";
 import { getDayOfWeek } from "../getStayersPrediction/getDayOfWeek";
@@ -20,8 +20,8 @@ const PredictionTime = async () => {
     const stayers: number[] = await getStayers();
     const allusers: UserData[] = await getAllUsers();
 
-    const allPrediction: usePrediction[] = await getPredicton(weekDay, allusers);
-    const stayerPrediction: usePrediction[] = stayerPredictions(allPrediction, stayers); //stayerIdで絞り込み
+    const allPrediction: userNamePrediction[] = await getPredicton(weekDay, allusers);
+    const stayerPrediction: userNamePrediction[] = stayerPredictions(allPrediction, stayers); //stayerIdで絞り込み
     const sored: number[] = timeSort(stayerPrediction);
     const [start, end, count] = findMaxCountInterval(sored, 30);
     const [members, mindiff] = minDiff(sored, start, end);
@@ -31,9 +31,6 @@ const PredictionTime = async () => {
     const nearestsBus = numberTimeToString(nearest);
     const nextBus = numberTimeToString(next);
     const member = getSectionMembers(start, end, stayerPrediction);
-    const memberId: number[] = member.map(
-        member => member.id
-    );
 
     return {
         start,
@@ -44,7 +41,7 @@ const PredictionTime = async () => {
         previousBus,
         nearestsBus,
         nextBus,
-        memberId,
+        member,
     };
 }
 

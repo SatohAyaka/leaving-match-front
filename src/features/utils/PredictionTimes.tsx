@@ -1,24 +1,25 @@
-import { usePrediction } from "../types/Prediction";
-import { getAllUsers } from "./utils/getStayersID/getAllUserData";
+import { userNamePrediction } from "../../types/Prediction";
+import { UserData } from "../../types/Stayer";
+import { getAllUsers } from "./getStayersID/getAllUserData";
 // import { getComingPredictions } from "./utils/getStayersID/getComingPredictions";
-import { getStayers } from "./utils/getStayersID/getStayersData";
-import { getDayOfWeek } from "./utils/getStayersPrediction/getDayOfWeek";
-import { getPredicton } from "./utils/getStayersPrediction/getPrediction";
-import { stayerPredictions } from "./utils/getStayersPrediction/stayerFilter";
-import { findMaxCountInterval } from "./utils/recommendedDepartureTime/getSection";
-import { numberTimeToString } from "./utils/recommendedDepartureTime/numberTimeToString";
-import { timeSort } from "./utils/recommendedDepartureTime/timeSort";
+import { getStayers } from "./getStayersID/getStayersData";
+import { getDayOfWeek } from "./getStayersPrediction/getDayOfWeek";
+import { getPredicton } from "./getStayersPrediction/getPrediction";
+import { stayerPredictions } from "./getStayersPrediction/stayerFilter";
+import { findMaxCountInterval } from "./recommendedDepartureTime/getSection";
+import { numberTimeToString } from "./recommendedDepartureTime/numberTimeToString";
+import { timeSort } from "./recommendedDepartureTime/timeSort";
 
 
 
 export default async function PredictionTimes() {
     const weekDay: number = getDayOfWeek();
     const stayers: number[] = await getStayers();
-    const allusers: number[] = await getAllUsers();
+    const allusers: UserData[] = await getAllUsers();
     // const comingUser: number[] = await getComingPredictions(weekDay, allusers);
 
-    const allPrediction: usePrediction[] = await getPredicton(weekDay, allusers);
-    const stayerPrediction: usePrediction[] = stayerPredictions(allPrediction, stayers);
+    const allPrediction: userNamePrediction[] = await getPredicton(weekDay, allusers);
+    const stayerPrediction: userNamePrediction[] = stayerPredictions(allPrediction, stayers);
     // const prediction: usePrediction[] = await getPredicton(weekDay, comingUser);
     const sored: number[] = timeSort(stayerPrediction);
     const [start, end, count] = findMaxCountInterval(sored, 30);

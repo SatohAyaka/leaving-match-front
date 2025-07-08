@@ -1,9 +1,8 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import { numberTimeToString } from "../utils/recommendedDepartureTime/numberTimeToString";
-import PredictionTime from "../utils/pages/predictionTime";
+import { numberTimeToString } from "../features/utils/recommendedDepartureTime/numberTimeToString";
+import PredictionTime from "../features/utils/pages/predictionTime";
 import BusTimeForm from "./form";
+import { UserData } from "@/src/types/Stayer";
 
 export default function DisplayTime() {
     const [data, setData] = useState<{
@@ -15,7 +14,7 @@ export default function DisplayTime() {
         previousBus: string;
         nearestsBus: string;
         nextBus: string;
-        memberId: number[];
+        member: UserData[];
     } | null>(null);
 
 
@@ -81,8 +80,8 @@ export default function DisplayTime() {
         <hr></hr>
         <div>
             <p>対象メンバー</p>
-            {data?.memberId.map((id) => (
-                <p key={id}>{id}</p>
+            {data?.member.map((user) => (
+                <p key={user.id}>{user.id}:{user.name}</p>
             ))}
         </div>
     </>

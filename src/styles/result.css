@@ -1,0 +1,67 @@
+.display {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 昼テーマ */
+.evening {
+  background: linear-gradient(to bottom, #d65f47, #f5caa8, #ac3018);
+}
+
+/* 夜テーマ */
+.night {
+  background: linear-gradient(to bottom, #2e1f6d, #1c2ea0, #2e1f6d);
+}
+
+.balloon {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background-color: rgba(235, 234, 199, 0.695);
+  padding: 80px 100px;
+  border-radius: 150px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  max-width: 300px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  color: black;
+}
+
+.center-box {
+  background-color: rgba(235, 234, 199, 0.695);
+  border-radius: 30px;
+  padding: 100px 150px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  color: black;
+}
+
+.time {
+  font-size: 8rem;
+  font-weight: normal;
+}
+
+.message {
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+/* 夜テーマ用の白文字 */
+.night .balloon,
+.night .center-box {
+  background-color: rgba(0, 0, 255, 0.2);
+  color: white;
+}
+
+.night .time,
+.night .message,
+.night .balloon {
+  color: white;
+}

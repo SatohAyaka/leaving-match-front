@@ -1,29 +1,30 @@
-import { getAllUsers } from "../utils/getStayersID/getAllUserData";
+import { getAllUsers } from "../features/utils/getStayersID/getAllUserData";
 // import { getComingPredictions } from "../getStayersID/getComingPredictions";
 
-import { findMaxCountInterval } from "../utils/recommendedDepartureTime/getSection";
-import { numberTimeToString } from "../utils/recommendedDepartureTime/numberTimeToString";
-import { getDayOfWeek } from "../utils/getStayersPrediction/getDayOfWeek";
-import { getPredicton } from "../utils/getStayersPrediction/getPrediction";
-import { getStayers } from "../utils/getStayersID/getStayersData";
-import { timeSort } from "../utils/recommendedDepartureTime/timeSort";
-import { minDiff } from "../utils/recommendedDepartureTime/minDiff";
-import { stayerPredictions } from "../utils/getStayersPrediction/stayerFilter";
-import { getAverage } from "../utils/recommendedDepartureTime/weightingAverage";
-import { findNearBuses } from "../utils/getBusTimes/findNearBusTimes";
-import { usePrediction } from "@/src/types/Prediction";
+import { findMaxCountInterval } from "../features/utils/recommendedDepartureTime/getSection";
+import { numberTimeToString } from "../features/utils/recommendedDepartureTime/numberTimeToString";
+import { getDayOfWeek } from "../features/utils/getStayersPrediction/getDayOfWeek";
+import { getPredicton } from "../features/utils/getStayersPrediction/getPrediction";
+import { getStayers } from "../features/utils/getStayersID/getStayersData";
+import { timeSort } from "../features/utils/recommendedDepartureTime/timeSort";
+import { minDiff } from "../features/utils/recommendedDepartureTime/minDiff";
+import { stayerPredictions } from "../features/utils/getStayersPrediction/stayerFilter";
+import { getAverage } from "../features/utils/recommendedDepartureTime/weightingAverage";
+import { findNearBuses } from "../features/utils/getBusTimes/findNearBusTimes";
+import { userNamePrediction } from "@/src/types/Prediction";
+import { UserData } from "@/src/types/Stayer";
 
 
 export default async function PredictionTimes() {
     const weekDay: number = getDayOfWeek();
     const stayers: number[] = await getStayers();
-    const allusers: number[] = await getAllUsers();
+    const allusers: UserData[] = await getAllUsers();
     // const comingUser: number[] = await getComingPredictions(weekDay, allusers);
 
-    const allPrediction: usePrediction[] = await getPredicton(weekDay, allusers);
+    const allPrediction: userNamePrediction[] = await getPredicton(weekDay, allusers);
     // const prediction: usePrediction[] = await getPredicton(weekDay, comingUser);
     // const prediction: usePrediction[] = await getPredicton(weekDay, stayers);
-    const stayerPrediction: usePrediction[] = stayerPredictions(allPrediction, stayers); //stayerIdで絞り込み
+    const stayerPrediction: userNamePrediction[] = stayerPredictions(allPrediction, stayers); //stayerIdで絞り込み
     const sored: number[] = timeSort(stayerPrediction);
     const [start, end, count] = findMaxCountInterval(sored, 30);
     // const [hourstart, hourend, hourcount] = findMaxCountInterval(sored, 60);

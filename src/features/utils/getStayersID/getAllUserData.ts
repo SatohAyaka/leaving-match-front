@@ -1,24 +1,23 @@
-import { User } from "@/src/types/Stayer";
+import { User, UserData } from "@/src/types/Stayer";
 
 
-const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
-const GET_USERS = process.env.NEXT_PUBLIC_USERS_API;
-
-
-export async function getAllUsers(): Promise<number[]> {
-    const response = await fetch(`${BASE_URL}${GET_USERS}`);
+export async function getAllUsers(): Promise<UserData[]> {
+    const response = await fetch('/api/users');
 
     if (!response.ok) {
         throw new Error(`ユーザ情報取得失敗: ${response.status}`);
     }
 
     const usersData: User[] = await response.json();
-    const userId: number[] = usersData
+    const user: UserData[] = usersData
         .filter( //OBのデータを除く
             (user) => user.tags.some(tag => tag.id >= 2 && tag.id <= 8)
         )
         .map(
-            (user) => user.id
-        )
-    return userId;
+            (user) => ({
+                id: user.id,
+                name: user.name
+            })
+        );
+    return user;
 }

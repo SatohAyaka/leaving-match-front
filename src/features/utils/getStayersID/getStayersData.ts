@@ -1,11 +1,8 @@
 import { Stayer } from "@/src/types/Stayer";
 
-const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
-const GET_STAYERS = process.env.NEXT_PUBLIC_STAYERS_API;
-
 
 export async function getStayers(): Promise<number[]> {
-    const response = await fetch(`${BASE_URL}${GET_STAYERS}`);
+    const response = await fetch('/api/stayers');
 
     if (!response.ok) {
         throw new Error(`滞在者情報取得失敗: ${response.status}`);

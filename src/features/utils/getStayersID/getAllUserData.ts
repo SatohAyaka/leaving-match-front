@@ -1,12 +1,8 @@
 import { User, UserData } from "@/src/types/Stayer";
 
 
-const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
-const GET_USERS = process.env.NEXT_PUBLIC_USERS_API;
-
-
 export async function getAllUsers(): Promise<UserData[]> {
-    const response = await fetch(`${BASE_URL}${GET_USERS}`);
+    const response = await fetch('/api/users');
 
     if (!response.ok) {
         throw new Error(`ユーザ情報取得失敗: ${response.status}`);

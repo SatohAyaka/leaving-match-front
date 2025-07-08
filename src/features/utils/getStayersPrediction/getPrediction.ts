@@ -1,6 +1,3 @@
-const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
-const GET_PREDICTION = process.env.NEXT_PUBLIC_PREDICTION_TIME_API;
-
 import { Prediction, GetPrediction, userNamePrediction } from "@/src/types/Prediction";
 import { stringTimeToNumber } from "../recommendedDepartureTime/stringTimeToNumber";
 import { UserData } from "@/src/types/Stayer";
@@ -10,10 +7,8 @@ export async function getPredicton(weekDay: number, allUsers: UserData[]): Promi
     const query = new URLSearchParams({
         weekday: weekDay.toString(),
     });
-    allUsers.forEach(id => query.append("user-id", id.toString()));
-    const apiUrl = `${BASE_URL}${GET_PREDICTION}?${query.toString()}`;
-    console.log(apiUrl);
-    const response = await fetch(`${apiUrl}`);
+    allUsers.forEach(user => query.append("user-id", user.id.toString()));
+    const response = await fetch(`/api/prediction?${query.toString()}`);
 
     if (!response.ok) {
         throw new Error(`予測帰宅時刻取得失敗: ${response.status}`);

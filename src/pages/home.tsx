@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { numberTimeToString } from "../features/utils/recommendedDepartureTime/numberTimeToString";
-import PredictionTime from "../features/utils/pages/predictionTime";
+import PredictionTime from "../features/utils/getDisplayData/predictionTime";
 import BusTimeForm from "./form";
 import { UserData } from "@/src/types/Stayer";
 

@@ -5,6 +5,9 @@ const ENDPOINT = process.env.NEXT_PUBLIC_STAYERS_API;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const API_KEY = process.env.API_KEY;
+    if (API_KEY == '') {
+        console.error('APIキー取得エラー');
+    }
 
     try {
         const response = await fetch(`${BASE_URL}${ENDPOINT}`, {

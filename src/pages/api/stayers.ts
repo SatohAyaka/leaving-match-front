@@ -1,9 +1,9 @@
 // pages/api/stayers.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
+const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
+const ENDPOINT = process.env.NEXT_PUBLIC_STAYERS_API;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const BASE_URL = process.env.STAY_WATCH_URL;
-    const ENDPOINT = process.env.STAYERS_API;
     const API_KEY = process.env.API_KEY;
 
     try {

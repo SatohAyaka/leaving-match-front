@@ -1,15 +1,18 @@
 
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { UserData } from "../types/Stayer";
+import { Select } from "@mantine/core";
 
 type BusTimeFormProps = {
     previous: string;
     nearest: string;
     next: string;
+    allUsers: UserData[];
 };
 
-export default function BusTimeForm({ previous, nearest, next }: BusTimeFormProps) {
-    const [userId, setUserId] = useState("");
+export default function BusTimeForm({ previous, nearest, next, allUsers }: BusTimeFormProps) {
+    const [userId, setUserId] = useState<string | null>(null);
     const [selectedTimes, setSelectedTimes] = useState<string[]>([]);
     const [usersSelection, setUsersSelection] = useState<{ [userId: string]: string[] }>({});
 
@@ -64,13 +67,18 @@ export default function BusTimeForm({ previous, nearest, next }: BusTimeFormProp
         <>
             <form onSubmit={handleSubmit} >
                 <div>
-                    <label htmlFor="userId">ユーザーID：</label>
-                    <input
-                        type="text"
+                    <label htmlFor="userId">ユーザー：</label>
+                    <Select
                         id="userId"
                         value={userId}
-                        onChange={(e) => setUserId(e.target.value)}
-                        required
+                        placeholder="ユーザーを選択"
+                        searchable
+                        onChange={(data) => setUserId(data)}
+                        data={allUsers.map((user) => ({
+                            value: user.id.toString(),
+                            label: user.name,
+                        }))}
+                        nothingFoundMessage="ユーザーが見つかりません"
                     />
                 </div>
 

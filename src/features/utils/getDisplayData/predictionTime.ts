@@ -42,6 +42,7 @@ const PredictionTime = async () => {
         nearestsBus,
         nextBus,
         member,
+        allusers,
     };
 }
 

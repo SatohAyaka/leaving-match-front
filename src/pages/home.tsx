@@ -15,6 +15,7 @@ export default function DisplayTime() {
         nearestsBus: string;
         nextBus: string;
         member: UserData[];
+        allusers: UserData[];
     } | null>(null);
 
 
@@ -27,7 +28,7 @@ export default function DisplayTime() {
 
         const interval = setInterval(() => {
             fetchData();
-        }, 60000); // 毎分実行
+        }, 600000); // 毎時実行
 
         return () => clearInterval(interval);
 
@@ -76,7 +77,7 @@ export default function DisplayTime() {
         <p>{data?.nearestsBus}</p>
         <p>{data?.nextBus}</p>
         <hr></hr>
-        <BusTimeForm previous={data?.previousBus} nearest={data?.nearestsBus} next={data?.nextBus} />
+        <BusTimeForm previous={data?.previousBus} nearest={data?.nearestsBus} next={data?.nextBus} allUsers={data.allusers} />
         <hr></hr>
         <div>
             <p>対象メンバー</p>

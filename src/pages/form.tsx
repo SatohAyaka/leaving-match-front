@@ -78,7 +78,7 @@ export default function BusTimeForm({ previous, nearest, next, allUsers }: BusTi
                             allUsers?.map((user) => ({
                                 value: user.id.toString(),
                                 label: user.name,
-                            })) ?? [] // ← fallbackとして空配列
+                            })) ?? []
                         }
                         nothingFoundMessage="ユーザーが見つかりません"
                     />

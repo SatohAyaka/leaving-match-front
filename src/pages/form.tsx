@@ -74,10 +74,12 @@ export default function BusTimeForm({ previous, nearest, next, allUsers }: BusTi
                         placeholder="ユーザーを選択"
                         searchable
                         onChange={(data) => setUserId(data)}
-                        data={allUsers.map((user) => ({
-                            value: user.id.toString(),
-                            label: user.name,
-                        }))}
+                        data={
+                            allUsers?.map((user) => ({
+                                value: user.id.toString(),
+                                label: user.name,
+                            })) ?? []
+                        }
                         nothingFoundMessage="ユーザーが見つかりません"
                     />
                 </div>

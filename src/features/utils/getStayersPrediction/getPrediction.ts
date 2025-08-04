@@ -8,7 +8,7 @@ export async function getPredicton(weekDay: number, allUsers: UserData[]): Promi
         weekday: weekDay.toString(),
     });
     allUsers.forEach(user => query.append("user-id", user.id.toString()));
-    const response = await fetch(`/api/prediction?${query.toString()}`);
+    const response = await fetch(`/api/getPrediction?${query.toString()}`);
 
     if (!response.ok) {
         throw new Error(`予測帰宅時刻取得失敗: ${response.status}`);

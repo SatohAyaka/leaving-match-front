@@ -1,8 +1,8 @@
 // pages/api/users.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
-const ENDPOINT = process.env.NEXT_PUBLIC_USERS_API;
+const BASE_URL = process.env.STAY_WATCH_URL;
+const ENDPOINT = process.env.USERS_API;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const API_KEY = process.env.API_KEY;

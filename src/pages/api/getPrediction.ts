@@ -1,7 +1,7 @@
 // pages/api/getprediction.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
-const PREDICTION_API = process.env.NEXT_PUBLIC_PREDICTION_TIME_API;
+const BASE_URL = process.env.STAY_WATCH_URL;
+const PREDICTION_API = process.env.PREDICTION_TIME_API;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const API_KEY = process.env.API_KEY;

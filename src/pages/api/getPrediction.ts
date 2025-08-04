@@ -1,4 +1,4 @@
-// pages/api/prediction.ts
+// pages/api/getprediction.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 const BASE_URL = process.env.NEXT_PUBLIC_STAY_WATCH_URL;
 const PREDICTION_API = process.env.NEXT_PUBLIC_PREDICTION_TIME_API;

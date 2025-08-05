@@ -49,7 +49,10 @@ async function getBustimeHandler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     const query = new URLSearchParams(req.query as Record<string, string>).toString();
-    const apiUrl = `${BASE_URL}${ENDPOINT}?${query}`
+    const apiUrl = query
+        ? `${BASE_URL}${ENDPOINT}?${query}`
+        : `${BASE_URL}${ENDPOINT}`;
+
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {

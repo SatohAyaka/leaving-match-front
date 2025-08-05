@@ -10,7 +10,38 @@ async function postBustimeHandler(req: NextApiRequest, res: NextApiResponse) {
     if (!BASE_URL || !ENDPOINT) {
         return res.status(500).json({ error: "APIのURLが設定されていません" });
     }
-    return res.status(201).json({ message: 'BusTimeカラムの追加成功' });
+    const { previous, nearest, next } = req.query;
+
+    if (
+        typeof previous !== "string" ||
+        typeof nearest !== "string" ||
+        typeof next !== "string"
+    ) {
+        return res.status(400).json({ error: "パラメータが不正です" });
+    }
+    const searchParams = new URLSearchParams({
+        previous,
+        nearest,
+        next,
+    });
+    const apiUrl = `${BASE_URL}${ENDPOINT}?${searchParams.toString()}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            const errorData = await response.json();
+            return res.status(response.status).json({
+                error: "外部API呼び出しに失敗しました",
+                detail: errorData,
+            });
+        }
+
+        const data = await response.json();
+        return res.status(200).json({ bustime_id: data.bustime_id });
+    } catch {
+        console.error('API通信失敗:', error);
+        res.status(500).json({ error: 'サーバー側での取得に失敗しました' });
+    }
 }
 async function getBustimeHandler(req: NextApiRequest, res: NextApiResponse) {
     if (!BASE_URL || !ENDPOINT) {

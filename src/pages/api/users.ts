@@ -29,8 +29,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const data = await apiRes.json();
         res.status(200).json(data);
-    } catch (error) {
-        console.error('API通信エラー:', error);
+    } catch (err) {
+        console.error('API通信エラー:', err);
         res.status(500).json({ error: '内部サーバーエラー' });
     }
 }

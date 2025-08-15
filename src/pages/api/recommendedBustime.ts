@@ -1,6 +1,5 @@
 // pages/api/recommendedBustime.ts
 
-import { error } from 'console';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const BASE_URL = process.env.LEAVING_MATCH_API;
@@ -38,8 +37,8 @@ async function postBustimeHandler(req: NextApiRequest, res: NextApiResponse) {
 
         const data = await response.json();
         return res.status(200).json({ bustime_id: data.bustime_id });
-    } catch {
-        console.error('API通信失敗:', error);
+    } catch (err) {
+        console.error('API通信失敗:', err);
         res.status(500).json({ error: 'サーバー側での取得に失敗しました' });
     }
 }
@@ -60,8 +59,8 @@ async function getBustimeHandler(req: NextApiRequest, res: NextApiResponse) {
         }
         const data = await response.json();
         return res.status(200).json(data);
-    } catch {
-        console.error("API呼び出し中にエラーが発生:", error);
+    } catch (err) {
+        console.error("API呼び出し中にエラーが発生:", err);
         return res.status(500).json({ error: "サーバーエラーが発生しました" });
     }
 }

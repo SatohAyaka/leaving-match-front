@@ -35,7 +35,7 @@ async function postBustimeHandler(req: NextApiRequest, res: NextApiResponse) {
         return res.status(200).json({ bustime_id: data.bustime_id });
     } catch (err) {
         console.error('API通信失敗:', err);
-        return res.status(500).json({ error: 'サーバー側での取得に失敗しました' });
+        return res.status(500).json({ error: 'サーバーエラーが発生しました' });
     }
 }
 async function getBustimeHandler(req: NextApiRequest, res: NextApiResponse) {

@@ -36,6 +36,6 @@ export default async function allBustimeHandler(req: NextApiRequest, res: NextAp
         res.status(200).json(allTimes);
     } catch (err) {
         console.error("バスAPI通信エラー:", err);
-        return res.status(500).json({ error: "サーバーでのバス情報取得に失敗しました" });
+        return res.status(500).json({ error: "サーバーエラーが発生しました" });
     }
 }

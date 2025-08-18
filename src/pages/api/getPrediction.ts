@@ -23,13 +23,13 @@ export default async function getpredictionHandler(req: NextApiRequest, res: Nex
         if (!response.ok) {
             const errorText = await response.text();
             console.error('外部APIエラー:', errorText);
-            return res.status(response.status).json({ error: '外部API取得失敗' });
+            return res.status(response.status).json({ error: '外部API呼び出しに失敗しました' });
         }
 
         const data = await response.json();
         res.status(200).json(data);
     } catch (err) {
         console.error('API通信失敗:', err);
-        return res.status(500).json({ error: 'サーバー側での取得に失敗しました' });
+        return res.status(500).json({ error: 'サーバーエラーが発生しました' });
     }
 }

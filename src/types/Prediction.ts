@@ -27,4 +27,12 @@ export type GetPredictionTime = {
     result: Probability[]
 }
 
+export type PredictionData = {
+    PredictionId: number;
+    BusTimeId: number;
+    UserId: number;
+    PredictionTime: string;
+    CreatedDate: string;
+}
+
 export type userNamePrediction = usePrediction & UserData;

@@ -1,29 +1,12 @@
-import { BusTime, ResponseBusTime } from "@/src/types/Bus";
-
-const BAS_URL = process.env.NEXT_PUBLIC_BUS_API;
+import { BusTime } from "@/src/types/Bus";
 
 export async function GetBusTime(): Promise<BusTime[]> {
-    const allTimes: BusTime[] = [];
-    let offset = 0;
-
-    while (true) {
-        const res = await fetch(`${BAS_URL}?offset=${offset}`);
-        console.log(res);
-        const data: ResponseBusTime = await res.json();
-
-        if (data.busState.IsExist === false) {
-            break;
-        }
-
-        allTimes.push({
-            busId: offset,
-            busTime: data.nextHourToYakusa * 60 + data.nextMinuteToYakusa,
-        });
-
-        offset++;
+    const res = await fetch('/api/allBustime');
+    if (!res.ok) {
+        throw new Error(`バス時刻の取得に失敗: ${res.status}`);
     }
 
-    // console.log(allTimes);
+    const allTimes: BusTime[] = await res.json();
     return allTimes;
 
 }

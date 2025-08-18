@@ -1,4 +1,4 @@
-// pages/api/bustime.ts
+// pages/api/allBustime.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { BusTime, ResponseBusTime } from "@/src/types/Bus";
 

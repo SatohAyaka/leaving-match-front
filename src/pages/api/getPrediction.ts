@@ -30,6 +30,6 @@ export default async function getpredictionHandler(req: NextApiRequest, res: Nex
         res.status(200).json(data);
     } catch (err) {
         console.error('API通信失敗:', err);
-        res.status(500).json({ error: 'サーバー側での取得に失敗しました' });
+        return res.status(500).json({ error: 'サーバー側での取得に失敗しました' });
     }
 }

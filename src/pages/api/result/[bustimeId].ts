@@ -9,12 +9,13 @@ export default async function postResultHandler(req: NextApiRequest, res: NextAp
     if (!BASE_URL || !ENDPOINT) {
         return res.status(500).json({ error: "APIのURLが設定されていません" });
     }
-    const bustimeId = req.query;
+    const { bustimeId } = req.query;
     if (typeof bustimeId !== 'string') {
         return res.status(400).json({ error: "busTimeIdは必須です" });
     }
+    const safeBustimeId = String(Number(bustimeId));
 
-    const apiUrl = new URL(`${ENDPOINT}/${bustimeId}`, BASE_URL).toString();
+    const apiUrl = new URL(`${ENDPOINT}/${safeBustimeId}`, BASE_URL).toString();
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {

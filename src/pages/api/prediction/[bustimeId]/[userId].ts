@@ -13,6 +13,8 @@ export default async function postPredictionHandler(req: NextApiRequest, res: Ne
     if (typeof bustimeId !== 'string' || typeof userId !== 'string') {
         return res.status(400).json({ error: "busTimeIdとuserIdは必須です" });
     }
+    const safeBustimeId = String(Number(bustimeId));
+    const safeUserId = String(Number(userId));
     const otherParams = { ...req.query };
     delete otherParams.busTimeId;
     delete otherParams.userId;
@@ -20,7 +22,7 @@ export default async function postPredictionHandler(req: NextApiRequest, res: Ne
         otherParams.time = String(Number(otherParams.time));
     }
 
-    const url = new URL(`${ENDPOINT}/${bustimeId}/${userId}`, BASE_URL);
+    const url = new URL(`${ENDPOINT}/${safeBustimeId}/${safeUserId}`, BASE_URL);
     Object.entries(otherParams).forEach(([key, value]) => {
         if (value !== undefined) {
             url.searchParams.append(key, String(value));

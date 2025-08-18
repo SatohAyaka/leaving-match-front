@@ -17,8 +17,9 @@ export default async function getPredictionHandler(req: NextApiRequest, res: Nex
     if (typeof bustimeId !== 'string') {
         return res.status(400).json({ error: "busTimeIdは必須です" });
     }
+    const safeBustimeId = String(Number(bustimeId));
 
-    const apiUrl = new URL(`${ENDPOINT}/${bustimeId}`, BASE_URL).toString();
+    const apiUrl = new URL(`${ENDPOINT}/${safeBustimeId}`, BASE_URL).toString();
 
     try {
         const response = await fetch(apiUrl);

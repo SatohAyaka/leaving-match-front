@@ -6,12 +6,8 @@ const ENDPOINT = process.env.USERS_API;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const API_KEY = process.env.API_KEY;
-    if (API_KEY == '') {
-        console.error('APIキー取得エラー');
-    }
-
     if (!BASE_URL || !ENDPOINT || !API_KEY) {
-        return res.status(500).json({ error: '環境変数が未設定です' });
+        return res.status(500).json({ error: "環境変数が不足しています" });
     }
 
     try {

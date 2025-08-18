@@ -27,6 +27,6 @@ export default async function usersHandler(req: NextApiRequest, res: NextApiResp
         res.status(200).json(data);
     } catch (err) {
         console.error('API通信エラー:', err);
-        res.status(500).json({ error: '内部サーバーエラー' });
+        return res.status(500).json({ error: '内部サーバーエラー' });
     }
 }

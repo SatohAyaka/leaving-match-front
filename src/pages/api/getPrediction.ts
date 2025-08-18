@@ -1,7 +1,7 @@
 // pages/api/getprediction.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 const BASE_URL = process.env.STAY_WATCH_URL;
-const PREDICTION_API = process.env.PREDICTION_TIME_API;
+const ENDPOINT = process.env.PREDICTION_TIME_API;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const API_KEY = process.env.API_KEY;
@@ -9,12 +9,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.error('APIキー取得エラー');
     }
 
-    if (!BASE_URL || !PREDICTION_API || !API_KEY) {
+    if (!BASE_URL || !ENDPOINT || !API_KEY) {
         return res.status(500).json({ error: "環境変数が不足しています" });
     }
 
     const query = req.url?.split('?')[1] || '';
-    const apiUrl = `${BASE_URL}${PREDICTION_API}?${query}`;
+    const apiUrl = `${BASE_URL}${ENDPOINT}?${query}`;
 
     try {
         const response = await fetch(apiUrl, {

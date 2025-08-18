@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { BusTime, ResponseBusTime } from "@/src/types/Bus";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function allBustimeHandler(req: NextApiRequest, res: NextApiResponse) {
     const BASE_URL = process.env.BUS_API;
 
     if (!BASE_URL) {

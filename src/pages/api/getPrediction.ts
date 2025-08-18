@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const BASE_URL = process.env.STAY_WATCH_URL;
 const ENDPOINT = process.env.PREDICTION_TIME_API;
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function getpredictionHandler(req: NextApiRequest, res: NextApiResponse) {
     const API_KEY = process.env.API_KEY;
 
     if (!BASE_URL || !ENDPOINT || !API_KEY) {

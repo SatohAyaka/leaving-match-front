@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const BASE_URL = process.env.STAY_WATCH_URL;
 const ENDPOINT = process.env.USERS_API;
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function usersHandler(req: NextApiRequest, res: NextApiResponse) {
     const API_KEY = process.env.API_KEY;
     if (!BASE_URL || !ENDPOINT || !API_KEY) {
         return res.status(500).json({ error: "環境変数が不足しています" });

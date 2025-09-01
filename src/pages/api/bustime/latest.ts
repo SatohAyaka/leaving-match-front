@@ -1,6 +1,5 @@
 // pages/api/result/latest
 
-import { ResultResponce } from '@/src/types/Result';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const BASE_URL = process.env.LEAVING_MATCH_API;

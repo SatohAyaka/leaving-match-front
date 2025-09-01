@@ -1,5 +1,6 @@
 // pages/api/result/[bustimeId].ts
 
+import { stringTimeToNumber } from '@/src/features/utils/recommendedDepartureTime/stringTimeToNumber';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const BASE_URL = process.env.LEAVING_MATCH_API;
@@ -22,7 +23,11 @@ export default async function postResultHandler(req: NextApiRequest, res: NextAp
             return res.status(response.status).json({ error: "外部API呼び出しに失敗しました" });
         }
         const data = await response.json();
-        return res.status(200).json({ result_id: data.result_id });
+        const converted = {
+            Bustime: stringTimeToNumber(data.BusTime),
+            Member: data.Member,
+        }
+        return res.status(200).json(converted);
     } catch (err) {
         console.error('API通信失敗:', err);
         return res.status(500).json({ error: 'サーバーエラーが発生しました' });

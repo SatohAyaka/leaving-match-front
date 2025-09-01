@@ -6,16 +6,32 @@ const BASE_URL = process.env.LEAVING_MATCH_API;
 const ENDPOINT = process.env.LEAVING_MATCH_BUSTIME;
 
 export default async function postBustimeHandler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== "GET") {
+        return res.status(405).json({ error: "Method Not Allowed" });
+    }
     if (!BASE_URL || !ENDPOINT) {
         return res.status(500).json({ error: "APIのURLが設定されていません" });
     }
-    const { recommendedId } = req.query;
+    const { recommendedId, previous, nearest, next } = req.query;
+
+    if (
+        typeof previous !== "string" ||
+        typeof nearest !== "string" ||
+        typeof next !== "string"
+    ) {
+        return res.status(400).json({ error: "パラメータが不正です" });
+    }
+    const searchParams = new URLSearchParams({
+        previous,
+        nearest,
+        next,
+    });
     if (typeof recommendedId !== 'string') {
         return res.status(400).json({ error: "recommendedIdは必須です" });
     }
     const safeRecommendedId = String(Number(recommendedId));
 
-    const apiUrl = new URL(`${ENDPOINT}/${safeRecommendedId}`, BASE_URL).toString();
+    const apiUrl = new URL(`${ENDPOINT}/${safeRecommendedId}?${searchParams.toString()}`, BASE_URL).toString();
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {

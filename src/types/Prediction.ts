@@ -28,11 +28,11 @@ export type GetPredictionTime = {
 }
 
 export type PredictionData = {
-    PredictionId: number;
-    BusTimeId: number;
-    UserId: number;
-    PredictionTime: string;
-    CreatedDate: string;
+    predictionId: number;
+    busTimeId: number;
+    userId: number;
+    predictionTime: string;
+    createdDate: string;
 }
 
 export type userNamePrediction = usePrediction & UserData;

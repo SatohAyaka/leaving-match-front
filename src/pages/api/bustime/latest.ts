@@ -7,7 +7,7 @@ const BASE_URL = process.env.LEAVING_MATCH_API;
 const ROUTER_PARAMS = process.env.LEAVING_MATCH_BUSTIME;
 const ENDPOINT = process.env.LATEST_ENDPOINT;
 
-export default async function getLatestBusTime(req: NextApiRequest, res: NextApiResponse) {
+export default async function getLatestBusTimeHandler(req: NextApiRequest, res: NextApiResponse) {
     if (!BASE_URL || !ROUTER_PARAMS || !ENDPOINT) {
         return res.status(500).json({ error: "APIのURLが設定されていません" });
     }

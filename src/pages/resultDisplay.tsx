@@ -4,7 +4,9 @@ import { numberTimeToString } from "../features/utils/recommendedDepartureTime/n
 import { getLatestResult } from "../features/utils/result/getLatestResult";
 import { Result } from "../types/Result";
 
-export function ResultDisplay() {
+import "../styles/result.css";
+
+export default function ResultDisplay() {
     const router = useRouter();
     const [time, setTime] = useState<string | null>(null);
     const [member, setMember] = useState<number | null>(null);
@@ -18,7 +20,7 @@ export function ResultDisplay() {
                 setMember(resultData.Member);
             } catch (err) {
                 console.error(err);
-                router.push("/home");
+                // router.push("/home");
             }
         };
         fetchResult();

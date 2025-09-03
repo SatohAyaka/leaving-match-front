@@ -1,6 +1,6 @@
 // pages/api/vote/[bustimeId].ts
 
-import { VoteResponse } from '@/src/types/Vote';
+import { Vote, VoteResponse } from '@/src/types/Vote';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const BASE_URL = process.env.LEAVING_MATCH_API;
@@ -21,7 +21,7 @@ export default async function getVoteHandler(req: NextApiRequest, res: NextApiRe
         var previousVote = 0;
         var nearestVote = 0;
         var nextVote = 0;
-        const converted = data.map(voteData => {
+        const count = data.map(voteData => {
             if (voteData.previous == true) {
                 previousVote += 1;
             }
@@ -31,12 +31,12 @@ export default async function getVoteHandler(req: NextApiRequest, res: NextApiRe
             if (voteData.next == true) {
                 nextVote += 1;
             }
-            return {
-                previous: previousVote,
-                nearest: nearestVote,
-                next: nextVote,
-            };
         });
+        const converted: Vote = {
+            previous: previousVote,
+            nearest: nearestVote,
+            next: nextVote,
+        }
         return res.status(response.status).json(converted);
     } catch (err) {
         console.error("API呼び出し中にエラーが発生:", err);

@@ -7,3 +7,9 @@ export type VoteResponse = {
     next: boolean;
     createdDate: string;
 }
+
+export type Vote = {
+    previous: number;
+    nearest: number;
+    next: number;
+}

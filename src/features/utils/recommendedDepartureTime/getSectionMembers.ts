@@ -1,14 +1,8 @@
-import { userNamePrediction } from "@/src/types/Prediction";
-import { UserData } from "@/src/types/Stayer";
+import { usePrediction } from "@/src/types/Prediction";
 
-export function getSectionMembers(min: number, max: number, prediction: userNamePrediction[]): UserData[] {
-    const member: UserData[] = prediction.filter(
+export function getSectionMembers(min: number, max: number, prediction: usePrediction[]): number[] {
+    const member: number[] = prediction.filter(
         (prediction) => prediction.predictionTime >= min && prediction.predictionTime <= max
-    ).map(
-        (prediction) => ({
-            id: prediction.id,
-            name: prediction.name
-        })
-    );
+    ).map((prediction) => prediction.id);
     return member;
 }

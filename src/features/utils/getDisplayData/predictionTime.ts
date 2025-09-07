@@ -1,4 +1,4 @@
-import { userNamePrediction } from "@/src/types/Prediction";
+import { usePrediction, userNamePrediction } from "@/src/types/Prediction";
 import { getAllUsers } from "../getStayersID/getAllUserData";
 import { getStayers } from "../getStayersID/getStayersData";
 import { getDayOfWeek } from "../getStayersPrediction/getDayOfWeek";
@@ -18,18 +18,19 @@ import { UserData } from "@/src/types/Stayer";
 const PredictionTime = async () => {
     const weekDay: number = getDayOfWeek();
     const stayers: number[] = await getStayers();
-    const allusers: UserData[] = await getAllUsers();
+    // const allusers: UserData[] = await getAllUsers();
 
-    const allPrediction: userNamePrediction[] = await getPredicton(weekDay, allusers);
-    const stayerPrediction: userNamePrediction[] = stayerPredictions(allPrediction, stayers); //stayerIdで絞り込み
+    // const allPrediction: userNamePrediction[] = await getPredicton(weekDay, allusers);
+    const stayerPrediction: usePrediction[] = await getPredicton(weekDay, stayers); //stayerIdで絞り込み
     const sored: number[] = timeSort(stayerPrediction);
     const [start, end, count] = findMaxCountInterval(sored, 30);
+
     const [members, mindiff] = minDiff(sored, start, end);
     const average = getAverage(members, timeSort(stayerPrediction));
-    const { previous, nearest, next } = await findNearBuses(average);
-    const previousBus: string = numberTimeToString(previous);
-    const nearestsBus = numberTimeToString(nearest);
-    const nextBus = numberTimeToString(next);
+    const bustime = await findNearBuses(average);
+    const previousBus: string = numberTimeToString(bustime.previousTime);
+    const nearestsBus = numberTimeToString(bustime.nearestTime);
+    const nextBus = numberTimeToString(bustime.nextTime);
     const member = getSectionMembers(start, end, stayerPrediction);
 
     return {
@@ -42,7 +43,7 @@ const PredictionTime = async () => {
         nearestsBus,
         nextBus,
         member,
-        allusers,
+        // allusers,
     };
 }
 

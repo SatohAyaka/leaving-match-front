@@ -6,7 +6,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const BASE_URL = process.env.LEAVING_MATCH_API;
 const ENDPOINT = process.env.LEAVING_MATCH_RECOMMENDED;
 
-export default async function postRecommended(req: NextApiRequest, res: NextApiResponse) {
+export default async function postRecommendedHandler(req: NextApiRequest, res: NextApiResponse) {
     if (!BASE_URL || !ENDPOINT) {
         return res.status(500).json({ error: "APIのURLが設定されていません" });
     }

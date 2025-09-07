@@ -5,7 +5,9 @@ export async function postBustime(recommendedId: number, selectBustime: SelectBu
     const nearest = selectBustime.nearestTime;
     const next = selectBustime.nextTime;
 
-    const response = await fetch(`api/bustime/${recommendedId}?previous=${previous}&nearest=${nearest}&next=${next}`);
+    const response = await fetch(`api/bustime/${recommendedId}?previous=${previous}&nearest=${nearest}&next=${next}`, {
+        method: "POST",
+    });
     if (!response.ok) {
         throw new Error(`BustimeId取得失敗: ${response.status}`);
     }

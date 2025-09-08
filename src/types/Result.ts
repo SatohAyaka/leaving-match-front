@@ -3,7 +3,7 @@ export type ResultResponce = {
     BusTimeId: number;
     BusTime: string;
     Member: number;
-    CreatedDate: number;
+    CreatedDate: string;
 }
 
 export type Result = {

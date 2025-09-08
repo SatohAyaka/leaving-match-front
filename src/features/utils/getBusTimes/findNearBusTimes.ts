@@ -1,7 +1,8 @@
 import { BusTime } from "@/src/types/Bus";
 import { GetBusTime } from "./getAllBusTimes";
+import { SelectBusTime } from "@/src/types/BusTime";
 
-export async function findNearBuses(targetMinutes: number): Promise<{ previous: number, nearest: number, next: number }> {
+export async function findNearBuses(targetMinutes: number): Promise<SelectBusTime> {
     const allTimes: BusTime[] = await GetBusTime();
 
     let previous: number = 0;
@@ -22,6 +23,11 @@ export async function findNearBuses(targetMinutes: number): Promise<{ previous: 
         }
     }
     console.log(previous, nearest, next);
+    const bustime: SelectBusTime = {
+        previousTime: previous,
+        nearestTime: nearest,
+        nextTime: next,
+    }
 
-    return { previous, nearest, next };
+    return bustime;
 }

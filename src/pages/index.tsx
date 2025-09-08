@@ -1,9 +1,9 @@
-import DisplayTime from "./home";
+import ResultDisplay from "./result";
 
 
 // ホーム
 const Home = () => {
-  return <DisplayTime />;
+  return <ResultDisplay />;
 };
 
 export default Home;

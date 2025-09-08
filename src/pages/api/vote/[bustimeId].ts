@@ -18,20 +18,16 @@ export default async function getVoteHandler(req: NextApiRequest, res: NextApiRe
             return res.status(response.status).json({ error: "外部API呼び出しに失敗しました" });
         }
         const data: VoteResponse[] = await response.json();
-        var previousVote = 0;
-        var nearestVote = 0;
-        var nextVote = 0;
-        const count = data.map(voteData => {
-            if (voteData.previous == true) {
-                previousVote += 1;
-            }
-            if (voteData.nearest == true) {
-                nearestVote += 1;
-            }
-            if (voteData.next == true) {
-                nextVote += 1;
-            }
+        let previousVote = 0;
+        let nearestVote = 0;
+        let nextVote = 0;
+
+        data.forEach(voteData => {
+            if (voteData.previous) previousVote += 1;
+            if (voteData.nearest) nearestVote += 1;
+            if (voteData.next) nextVote += 1;
         });
+
         const converted: Vote = {
             previous: previousVote,
             nearest: nearestVote,

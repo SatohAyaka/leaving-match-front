@@ -1,7 +1,5 @@
 import { Prediction, GetPrediction, usePrediction } from "@/src/types/Prediction";
 import { stringTimeToNumber } from "../recommendedDepartureTime/stringTimeToNumber";
-import { UserData } from "@/src/types/Stayer";
-import userIdToName from "../getStayersID/userIdToUserName";
 
 export async function getPredicton(weekDay: number, stayers: number[]): Promise<usePrediction[]> {
     const query = new URLSearchParams({

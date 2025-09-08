@@ -18,9 +18,12 @@ export default function ResultDisplay() {
                 const resultData: Result = await getLatestResult();
                 setTime(numberTimeToString(resultData.Bustime));
                 setMember(resultData.Member);
+                if (resultData.Member == 0) {
+                    // 「〜人と帰れそう」表示を消す
+                }
             } catch (err) {
                 console.error(err);
-                // router.push("/home");
+                router.push("/select");
             }
         };
         fetchResult();

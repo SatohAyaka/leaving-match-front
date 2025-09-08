@@ -22,7 +22,7 @@ export default function SelectDisplay() {
                 setNext(numberTimeToString(bustimeData.nextTime));
             } catch (err) {
                 console.error(err);
-                // router.push("/home");
+                router.push("/result");
             }
         };
         fetchResult();

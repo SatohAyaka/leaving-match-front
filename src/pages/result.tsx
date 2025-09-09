@@ -11,6 +11,7 @@ export default function ResultDisplay() {
     const [time, setTime] = useState<string | null>(null);
     const [member, setMember] = useState<number | null>(null);
     const [bustimeNum, setBustimeNum] = useState<number | null>(null);
+    const [serverNow, setServerNow] = useState<string | null>(null);
 
     useEffect(() => {
         if (!router.isReady) return;
@@ -20,6 +21,7 @@ export default function ResultDisplay() {
                 setTime(numberTimeToString(resultData.Bustime));
                 setBustimeNum(resultData.Bustime);
                 setMember(resultData.Member);
+                setServerNow(resultData.serverNow);
                 if (resultData.Member == 0) {
                     // 「〜人と帰れそう」表示を消す
                 }
@@ -30,21 +32,31 @@ export default function ResultDisplay() {
         fetchResult();
     }, [router]);
 
-    useEffect(() => {
-        if (!bustimeNum) return;
 
-        const interval = setInterval(() => {
+    useEffect(() => {
+        if (!bustimeNum || !serverNow) return;
+
+        const serverDate = new Date(serverNow);
+        const serverMinutes = serverDate.getHours() * 60 + serverDate.getMinutes();
+        if (serverMinutes > bustimeNum) {
+            router.push("/select");
+            return;
+        }
+
+        const checkTime = () => {
             const now = new Date();
             const nowMinutes = now.getHours() * 60 + now.getMinutes();
-
             if (nowMinutes > bustimeNum) {
-                clearInterval(interval); // 無限ループ防止
                 router.push("/select");
             }
-        }, 60 * 1000); // 1分
+        };
+
+        const interval = setInterval(checkTime, 60 * 1000);
 
         return () => clearInterval(interval);
-    }, [bustimeNum, router]);
+    }, [bustimeNum, serverNow, router]);
+
+
 
     return (
         <body>

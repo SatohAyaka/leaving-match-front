@@ -59,6 +59,7 @@ async function getResultHandler(req: NextApiRequest, res: NextApiResponse) {
         const converted: Result = {
             Bustime: stringTimeToNumber(timeStr),
             Member: data.Member,
+            serverNow: new Date().toISOString()
         };
         return res.status(response.status).json(converted);
     } catch (err) {

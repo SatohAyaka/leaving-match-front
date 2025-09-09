@@ -9,4 +9,5 @@ export type ResultResponce = {
 export type Result = {
     Bustime: number;
     Member: number;
+    serverNow: string;
 }

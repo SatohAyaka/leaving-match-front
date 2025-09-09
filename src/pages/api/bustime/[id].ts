@@ -6,10 +6,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const BASE_URL = process.env.LEAVING_MATCH_API;
 const ENDPOINT = process.env.LEAVING_MATCH_BUSTIME;
 
-function toDateSafe(isoString: string): Date {
-    return new Date(isoString.replace("+09:00", "Z"));
-}
-
 async function postBustimeHandler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
         return res.status(405).json({ error: "Method Not Allowed" });
@@ -68,12 +64,17 @@ async function getBusTimeHandler(req: NextApiRequest, res: NextApiResponse) {
             return res.status(response.status).json({ error: "外部API呼び出しに失敗しました" });
         }
         const data: ResponseBustimeData[] = await response.json();
+        const previous = new Date(data[0].PreviousTime).toISOString().substring(11, 16);
+        const nearest = new Date(data[0].NearestTime).toISOString().substring(11, 16);
+        const next = new Date(data[0].NextTime).toISOString().substring(11, 16);
+        const endtime = new Date(data[0].EndTime).toISOString().substring(11, 16);
+
         const converted: ConvertBusTime = {
             bustimeId: data[0].BusTimeId,
-            previousTime: toDateSafe(data[0].PreviousTime).toISOString().substring(11, 16),
-            nearestTime: toDateSafe(data[0].NearestTime).toISOString().substring(11, 16),
-            nextTime: toDateSafe(data[0].NextTime).toISOString().substring(11, 16),
-            endTime: toDateSafe(data[0].EndTime).toISOString().substring(11, 16),
+            previousTime: previous,
+            nearestTime: nearest,
+            nextTime: next,
+            endTime: endtime,
         };
         return res.status(200).json(converted);
     } catch (err) {

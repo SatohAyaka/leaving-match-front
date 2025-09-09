@@ -2,8 +2,8 @@ export const stringTimeToNumber = (dateTime: string) => {
     let timePart: string;
 
     if (dateTime.includes(" ")) {
-        // "YYYY-MM-DD HH:mm:ss" 形式
-        const parts = dateTime.split(" ");
+        // ISO8601形式
+        const parts = dateTime.split("T");
         if (parts.length < 2) {
             throw new Error(`Invalid datetime format: ${dateTime}`);
         }

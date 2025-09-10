@@ -61,15 +61,13 @@ export default function SelectDisplay() {
     }, [endtime, serverNow, router]);
 
     return (
-        <body>
-            <div className={`display night`}>
-                <div className="center-box">
-                    <div className="time">{previous}</div>
-                    <div className="time">{nearest}</div>
-                    <div className="time">{next}</div>
-                    <div className="message">のバスに乗りませんか？</div>
-                </div>
+        <div className={`display night`}>
+            <div className="center-box">
+                <div className="time">{previous}</div>
+                <div className="time">{nearest}</div>
+                <div className="time">{next}</div>
+                <div className="message">のバスに乗りませんか？</div>
             </div>
-        </body>
+        </div>
     );
 }

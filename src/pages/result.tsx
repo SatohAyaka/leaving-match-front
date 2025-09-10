@@ -36,7 +36,19 @@ export default function ResultDisplay() {
     useEffect(() => {
         if (!bustimeNum || !serverNow) return;
 
+        if (!bustimeNum || !serverNow) return;
+
+        const bustimeDate = new Date(bustimeNum);
         const serverDate = new Date(serverNow);
+
+        const bustimeDay = bustimeDate.toISOString().slice(0, 10);
+        const serverDay = serverDate.toISOString().slice(0, 10);
+
+        if (bustimeDay !== serverDay) {
+            router.push("/select");
+            return;
+        }
+
         const serverMinutes = serverDate.getHours() * 60 + serverDate.getMinutes();
         if (serverMinutes > bustimeNum) {
             router.push("/select");
@@ -59,17 +71,15 @@ export default function ResultDisplay() {
 
 
     return (
-        <body>
-            <div className={`display night`}>
-                <div className="balloon">
-                    {member !== null ? `${member}人くらいと` : "数人と"}<br />
-                    一緒に帰れるかも？
-                </div>
-                <div className="center-box">
-                    <div className="time">{time}</div>
-                    <div className="message">のバスに乗りませんか？</div>
-                </div>
+        <div className={`display night`}>
+            <div className="balloon">
+                {member !== null ? `${member}人くらいと` : "数人と"}<br />
+                一緒に帰れるかも？
             </div>
-        </body>
+            <div className="center-box">
+                <div className="time">{time}</div>
+                <div className="message">のバスに乗りませんか？</div>
+            </div>
+        </div>
     );
 }

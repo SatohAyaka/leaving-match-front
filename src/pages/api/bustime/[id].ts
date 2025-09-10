@@ -75,6 +75,7 @@ async function getBusTimeHandler(req: NextApiRequest, res: NextApiResponse) {
             nearestTime: nearest,
             nextTime: next,
             endTime: endtime,
+            serverNow: new Date().toISOString()
         };
         return res.status(200).json(converted);
     } catch (err) {

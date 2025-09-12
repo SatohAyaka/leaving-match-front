@@ -15,6 +15,7 @@ export default function SelectDisplay() {
     const [next, setNext] = useState<string | null>(null);
     const [endtime, setEndtime] = useState<number | null>(null);
     const [serverNow, setServerNow] = useState<string | null>(null);
+    const [isWaiting, setIsWaiting] = useState(false);
 
     useEffect(() => {
         if (!router.isReady) return;
@@ -27,8 +28,10 @@ export default function SelectDisplay() {
                 setEndtime(stringTimeToNumber(bustimeData.endTime));
                 setServerNow(bustimeData.serverNow);
                 const resultData: Result = await getLatestResult();
-                if (bustimeData.bustimeId == resultData.BustimeId) {
-                    //待機画面に
+                if (bustimeData.bustimeId === resultData.BustimeId) {
+                    setIsWaiting(true);
+                } else {
+                    setIsWaiting(false);
                 }
             } catch (err) {
                 console.error(err);
@@ -59,6 +62,17 @@ export default function SelectDisplay() {
 
         return () => clearInterval(interval);
     }, [endtime, serverNow, router]);
+
+    if (isWaiting) {
+        return (
+            <div className={`display night`}>
+                <div className="center-box">
+                    <div className="message">取得中...</div>
+                </div>
+            </div>
+        );
+    }
+
 
     return (
         <div className={`display night`}>

@@ -7,6 +7,8 @@ import "../styles/result.css";
 import { Result } from "../types/Result";
 import { getLatestResult } from "../features/utils/result/getLatestResult";
 import { stringTimeToNumber } from "../features/utils/recommendedDepartureTime/stringTimeToNumber";
+import WaitingDisplay from "./components/waintingDisplay";
+import BusTimeDisplay from "./components/selectBustimeDisplay";
 
 export default function SelectDisplay() {
     const router = useRouter();
@@ -64,24 +66,9 @@ export default function SelectDisplay() {
     }, [endtime, serverNow, router]);
 
     if (isWaiting) {
-        return (
-            <div className={`display night`}>
-                <div className="center-box">
-                    <div className="message">取得中...</div>
-                </div>
-            </div>
-        );
+        return <WaitingDisplay />;
     }
 
 
-    return (
-        <div className={`display night`}>
-            <div className="center-box">
-                <div className="time">{previous}</div>
-                <div className="time">{nearest}</div>
-                <div className="time">{next}</div>
-                <div className="message">のバスに乗りませんか？</div>
-            </div>
-        </div>
-    );
+    return <BusTimeDisplay previous={previous} nearest={nearest} next={next} />;
 }

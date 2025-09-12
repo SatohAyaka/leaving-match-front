@@ -1,9 +1,9 @@
-import ResultDisplay from "./result";
+import ResultContainer from "./result";
 
 
 // ホーム
 const Home = () => {
-  return <ResultDisplay />;
+  return <ResultContainer />;
 };
 
 export default Home;

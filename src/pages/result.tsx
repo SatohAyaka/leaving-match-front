@@ -5,8 +5,9 @@ import { getLatestResult } from "../features/utils/result/getLatestResult";
 import { Result } from "../types/Result";
 
 import "../styles/result.css";
+import ResultDisplay from "./components/resultDisplay";
 
-export default function ResultDisplay() {
+export default function ResultContainer() {
     const router = useRouter();
     const [time, setTime] = useState<string | null>(null);
     const [member, setMember] = useState<number | null>(null);
@@ -69,17 +70,15 @@ export default function ResultDisplay() {
     }, [bustimeNum, serverNow, router]);
 
 
+    if (time === null) {
+        return (
+            <div className="display night">
+                <div className="center-box">
+                    <div className="message">取得中...</div>
+                </div>
+            </div>
+        );
+    }
 
-    return (
-        <div className={`display night`}>
-            <div className="balloon">
-                {member !== null ? `${member}人くらいと` : "数人と"}<br />
-                一緒に帰れるかも？
-            </div>
-            <div className="center-box">
-                <div className="time">{time}</div>
-                <div className="message">のバスに乗りませんか？</div>
-            </div>
-        </div>
-    );
+    return <ResultDisplay bustime={time} member={member} />;
 }

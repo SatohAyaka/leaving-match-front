@@ -24,11 +24,7 @@ async function postResultHandler(req: NextApiRequest, res: NextApiResponse) {
             return res.status(response.status).json({ error: "外部API呼び出しに失敗しました" });
         }
         const data = await response.json();
-        const converted = {
-            Bustime: stringTimeToNumber(data.BusTime),
-            Member: data.Member,
-        }
-        return res.status(200).json(converted);
+        return res.status(200).json(data);
     } catch (err) {
         console.error('API通信失敗:', err);
         return res.status(500).json({ error: 'サーバーエラーが発生しました' });
@@ -45,7 +41,6 @@ async function getResultHandler(req: NextApiRequest, res: NextApiResponse) {
     const safeBustimeId = String(Number(bustimeId));
 
     const apiUrl = new URL(`${BASE_URL}${ENDPOINT}/${safeBustimeId}`);
-    // const apiUrl = new URL(`${BASE_URL}${ENDPOINT}/latest`);
 
     try {
         const response = await fetch(apiUrl);

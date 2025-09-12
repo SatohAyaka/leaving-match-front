@@ -9,7 +9,8 @@ export type ConvertBusTime = {
     previousTime: string;
     nearestTime: string;
     nextTime: string;
-    endTime: string
+    endTime: string;
+    serverNow: string;
 };
 
 export type ResponseBustimeData = {

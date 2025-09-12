@@ -57,8 +57,10 @@ async function getResultHandler(req: NextApiRequest, res: NextApiResponse) {
             .toISOString()
             .substring(11, 16);// "HH:mm"
         const converted: Result = {
+            BustimeId: data.BusTimeId,
             Bustime: stringTimeToNumber(timeStr),
             Member: data.Member,
+            serverNow: new Date().toISOString()
         };
         return res.status(response.status).json(converted);
     } catch (err) {

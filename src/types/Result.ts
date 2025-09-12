@@ -7,6 +7,8 @@ export type ResultResponce = {
 }
 
 export type Result = {
+    BustimeId: number;
     Bustime: number;
     Member: number;
+    serverNow: string;
 }

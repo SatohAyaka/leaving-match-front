@@ -6,6 +6,7 @@ import { Result } from "../types/Result";
 
 import "../styles/result.css";
 import ResultDisplay from "./components/resultDisplay";
+import WaitingDisplay from "./components/waintingDisplay";
 
 export default function ResultContainer() {
     const router = useRouter();
@@ -71,13 +72,7 @@ export default function ResultContainer() {
 
 
     if (time === null) {
-        return (
-            <div className="display night">
-                <div className="center-box">
-                    <div className="message">取得中...</div>
-                </div>
-            </div>
-        );
+        return <WaitingDisplay />
     }
 
     return <ResultDisplay bustime={time} member={member} />;

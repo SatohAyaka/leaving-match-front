@@ -47,7 +47,7 @@ export default function SelectDisplay() {
                 setIsWaiting(bustimeData.bustimeId === resultData.BustimeId);
 
                 const serverMinutes = new Date(bustimeData.serverNow).getHours() * 60 + new Date(serverNow).getMinutes();
-                if (serverMinutes > endtime && !(bustimeId === resultData.BustimeId) && !hasPostedRef.current) {
+                if (serverMinutes > endtime && bustimeId === resultData.BustimeId && !hasPostedRef.current) {
                     handlePostAndRedirect(bustimeData.bustimeId);
                 }
             } catch (err) {

@@ -5,6 +5,5 @@ export async function postResult(bustimeId: number) {
     if (!response.ok) {
         throw new Error(`Result登録失敗: ${response.status}`);
     }
-    const resultId: number = await response.json();
-    return resultId;
+    return;
 }

@@ -64,17 +64,21 @@ async function getBusTimeHandler(req: NextApiRequest, res: NextApiResponse) {
             return res.status(response.status).json({ error: "外部API呼び出しに失敗しました" });
         }
         const data: ResponseBustimeData[] = await response.json();
-        const previous = new Date(data[0].PreviousTime).toISOString().substring(11, 16);
-        const nearest = new Date(data[0].NearestTime).toISOString().substring(11, 16);
-        const next = new Date(data[0].NextTime).toISOString().substring(11, 16);
-        const endtime = new Date(data[0].EndTime).toISOString().substring(11, 16);
+        const toJstTimeString = (isoStr: string) => {
+            const date = new Date(isoStr);
+            const jst = new Date(date.getTime() + 9 * 60 * 60 * 1000); // UTC→JST
+            const hour = jst.getUTCHours().toString().padStart(2, "0");
+            const minute = jst.getUTCMinutes().toString().padStart(2, "0");
+            return `${hour}:${minute}`;
+        };
+
 
         const converted: ConvertBusTime = {
             bustimeId: data[0].BusTimeId,
-            previousTime: previous,
-            nearestTime: nearest,
-            nextTime: next,
-            endTime: endtime,
+            previousTime: toJstTimeString(data[0].PreviousTime),
+            nearestTime: toJstTimeString(data[0].NearestTime),
+            nextTime: toJstTimeString(data[0].NextTime),
+            endTime: toJstTimeString(data[0].EndTime),
             serverNow: new Date().toISOString()
         };
         return res.status(200).json(converted);

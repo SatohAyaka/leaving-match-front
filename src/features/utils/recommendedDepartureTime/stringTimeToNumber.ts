@@ -1,29 +1,29 @@
 export const stringTimeToNumber = (dateTime: string) => {
-    let timePart: string;
+    if (typeof dateTime === "number") {
+        return dateTime;
+    }
 
-    if (dateTime.includes(" ")) {
+    if (dateTime.includes("T")) {
         // ISO8601形式
-        const parts = dateTime.split("T");
-        if (parts.length < 2) {
-            throw new Error(`Invalid datetime format: ${dateTime}`);
-        }
-        timePart = parts[1].substring(0, 5); // "HH:mm" 部分を取り出す
+        const timePart = dateTime.split("T")[1].slice(0, 5); // "19:20"
+        const [hourStr, minuteStr] = timePart.split(":");
+        const hour = parseInt(hourStr, 10);
+        const minute = parseInt(minuteStr, 10);
+        return hour * 60 + minute;
     } else {
         // "HH:mm" 形式
-        timePart = dateTime.substring(0, 5);
+        const [hourStr, minuteStr] = dateTime.substring(0, 5).split(":");
+        const hour = parseInt(hourStr, 10);
+        const minute = parseInt(minuteStr, 10);
+
+        if (
+            isNaN(hour) || isNaN(minute) ||
+            hour < 0 || hour > 23 ||
+            minute < 0 || minute > 59
+        ) {
+            throw new Error(`Invalid time format: ${dateTime}`);
+        }
+
+        return hour * 60 + minute;
     }
-
-    const [hourStr, minuteStr] = timePart.split(":");
-    const hour = parseInt(hourStr, 10);
-    const minute = parseInt(minuteStr, 10);
-
-    if (
-        isNaN(hour) || isNaN(minute) ||
-        hour < 0 || hour > 23 ||
-        minute < 0 || minute > 59
-    ) {
-        throw new Error(`Invalid time format: ${dateTime}`);
-    }
-
-    return hour * 60 + minute;
 };

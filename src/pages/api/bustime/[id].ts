@@ -64,11 +64,13 @@ async function getBusTimeHandler(req: NextApiRequest, res: NextApiResponse) {
             return res.status(response.status).json({ error: "外部API呼び出しに失敗しました" });
         }
         const data: ResponseBustimeData[] = await response.json();
+        if (!Array.isArray(data) || data.length === 0) {
+            return res.status(404).json({ error: "BusTimeデータが存在しません" });
+        }
         const toJstTimeString = (isoStr: string) => {
             const date = new Date(isoStr);
-            const jst = new Date(date.getTime() + 9 * 60 * 60 * 1000); // UTC→JST
-            const hour = jst.getUTCHours().toString().padStart(2, "0");
-            const minute = jst.getUTCMinutes().toString().padStart(2, "0");
+            const hour = date.getHours().toString().padStart(2, "0");
+            const minute = date.getMinutes().toString().padStart(2, "0");
             return `${hour}:${minute}`;
         };
 

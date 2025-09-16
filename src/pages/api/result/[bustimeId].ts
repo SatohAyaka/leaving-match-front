@@ -53,8 +53,8 @@ async function getResultHandler(req: NextApiRequest, res: NextApiResponse) {
         const now = new Date();
         const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
         const converted: Result = {
-            BustimeId: data.BusTimeId,
-            Bustime: stringTimeToNumber(timeStr),
+            BusTimeId: data.BusTimeId,
+            BusTime: stringTimeToNumber(timeStr),
             Member: data.Member,
             serverNow: jstNow.toISOString().substring(11, 16)
         };

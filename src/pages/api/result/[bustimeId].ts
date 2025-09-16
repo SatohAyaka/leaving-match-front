@@ -24,11 +24,8 @@ async function postResultHandler(req: NextApiRequest, res: NextApiResponse) {
             return res.status(response.status).json({ error: "外部API呼び出しに失敗しました" });
         }
         const data = await response.json();
-        const converted = {
-            Bustime: stringTimeToNumber(data.BusTime),
-            Member: data.Member,
-        }
-        return res.status(200).json(converted);
+        const resultId = data.result_id;
+        return res.status(200).json(resultId);
     } catch (err) {
         console.error('API通信失敗:', err);
         return res.status(500).json({ error: 'サーバーエラーが発生しました' });
@@ -45,7 +42,6 @@ async function getResultHandler(req: NextApiRequest, res: NextApiResponse) {
     const safeBustimeId = String(Number(bustimeId));
 
     const apiUrl = new URL(`${BASE_URL}${ENDPOINT}/${safeBustimeId}`);
-    // const apiUrl = new URL(`${BASE_URL}${ENDPOINT}/latest`);
 
     try {
         const response = await fetch(apiUrl);
@@ -53,14 +49,14 @@ async function getResultHandler(req: NextApiRequest, res: NextApiResponse) {
             return res.status(response.status).json({ error: "外部API呼び出しに失敗しました" });
         }
         const data: ResultResponce = await response.json();
-        const timeStr = new Date(data.BusTime)
-            .toISOString()
-            .substring(11, 16);// "HH:mm"
+        const timeStr = data.BusTime.split("T")[1].slice(0, 5);
+        const now = new Date();
+        const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
         const converted: Result = {
-            BustimeId: data.BusTimeId,
-            Bustime: stringTimeToNumber(timeStr),
+            BusTimeId: data.BusTimeId,
+            BusTime: stringTimeToNumber(timeStr),
             Member: data.Member,
-            serverNow: new Date().toISOString()
+            serverNow: jstNow.toISOString().substring(11, 16)
         };
         return res.status(response.status).json(converted);
     } catch (err) {

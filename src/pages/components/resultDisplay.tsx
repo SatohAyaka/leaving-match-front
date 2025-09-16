@@ -1,3 +1,5 @@
+import "../../styles/result.css";
+
 type Props = {
     bustime: string;
     member: number | null;
@@ -8,7 +10,7 @@ export default function ResultDisplay({ bustime, member }: Props) {
         <div className="display night">
             {member !== 0 && (
                 <div className="balloon">
-                    {member !== null ? `${member}人くらいと` : "数人と"} <br />
+                    {member !== 1 ? `${member}人くらいと` : "数人と"} <br />
                     一緒に帰れるかも？
                 </div>
             )}

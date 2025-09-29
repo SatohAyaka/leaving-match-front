@@ -49,8 +49,11 @@
 }
 
 .message {
-  font-size: 1.5rem;
-  margin-top: 10px;
+  font-size: 80px;
+  line-height: 0.9;
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin: 0;
 }
 
 /* 夜テーマ用の白文字 */
@@ -64,4 +67,19 @@
 .night .message,
 .night .balloon {
   color: white;
+}
+
+.vote-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #ffcc00;
+  /* 黄色い丸 */
+  margin: 0 3px;
 }

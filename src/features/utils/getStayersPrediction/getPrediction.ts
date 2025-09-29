@@ -6,7 +6,7 @@ export async function getPredicton(weekDay: number, stayers: number[]): Promise<
         weekday: weekDay.toString(),
     });
     stayers.forEach(user => query.append("user-id", user.toString()));
-    const response = await fetch(`${process.env.BASE_URL}/api/getPrediction?${query.toString()}`);
+    const response = await fetch(`${process.env.REACT_API}/api/getPrediction?${query.toString()}`);
 
     if (!response.ok) {
         throw new Error(`予測帰宅時刻取得失敗: ${response.status}`);

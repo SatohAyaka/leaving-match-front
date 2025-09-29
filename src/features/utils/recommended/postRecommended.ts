@@ -5,7 +5,7 @@ export async function postRecommended(recommendedTime: number, memberIds: number
         time: recommendedTime.toString(),
     });
     memberIds.forEach(id => query.append("member", id.toString()));
-    const response = await fetch(`${process.env.BASE_URL}/api/recommended?${query.toString()}`, {
+    const response = await fetch(`${process.env.REACT_API}/api/recommended?${query.toString()}`, {
         method: "POST",
     });
 

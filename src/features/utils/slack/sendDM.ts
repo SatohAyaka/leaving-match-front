@@ -14,7 +14,7 @@ export default async function sendDMs(memberIds: number[], bustimes: SelectBusTi
     }
 
 
-    const response = await fetch(`${process.env.BASE_URL}/api/slack/notify?${query.toString()}`, {
+    const response = await fetch(`${process.env.REACT_API}/api/slack/notify?${query.toString()}`, {
         method: "POST",
     });
 

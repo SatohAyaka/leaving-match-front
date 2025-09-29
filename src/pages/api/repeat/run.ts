@@ -1,4 +1,4 @@
-// src/pages/api/prediction/run.ts
+// src/pages/api/repeat/run.ts
 
 import { postBustime } from "@/src/features/utils/bustime/postBustime";
 import { findNearBuses } from "@/src/features/utils/getBusTimes/findNearBusTimes";

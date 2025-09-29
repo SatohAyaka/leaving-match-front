@@ -11,6 +11,7 @@ import { postResult } from "../features/utils/result/postResult";
 import WaitingDisplay from "./components/waintingDisplay";
 import BusTimeDisplay from "./components/selectBustimeDisplay";
 import ResultDisplay from "./components/resultDisplay";
+import { getCurrentVote } from "../features/utils/vote/getCurrentVote";
 
 type DisplayState = "WAITING" | "RESULT" | "SELECT";
 
@@ -26,6 +27,11 @@ export default function HomeContainer() {
   const [resultMember, setResultMember] = useState<number | null>(null);
 
   const [displayState, setDisplayState] = useState<DisplayState>("SELECT");
+
+  const [previousVote, setPreviousVote] = useState<number>(0);
+  const [nearestVote, setNearestVote] = useState<number>(0);
+  const [nextVote, setNextVote] = useState<number>(0);
+
 
   const hasPostedRef = useRef(false);
 
@@ -52,6 +58,11 @@ export default function HomeContainer() {
 
       const bustimeId = bustimeData.bustimeId;
       const endtime = stringTimeToNumber(bustimeData.endTime);
+
+      const votes = await getCurrentVote();
+      setPreviousVote(votes.previous);
+      setNearestVote(votes.nearest);
+      setNextVote(votes.next);
 
       // 最新 result 取得
       const resultData: Result = await getLatestResult();
@@ -110,6 +121,6 @@ export default function HomeContainer() {
       return <ResultDisplay bustime={resultTime!} member={resultMember} />;
     case "SELECT":
     default:
-      return <BusTimeDisplay previous={previous} nearest={nearest} next={next} />;
+      return <BusTimeDisplay previous={previous} nearest={nearest} next={next} previousVote={previousVote} nearestVote={nearestVote} nextVote={nextVote} />;
   }
 }

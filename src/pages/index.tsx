@@ -1,12 +1,3 @@
-// import ResultContainer from "./result";
-
-
-// // ホーム
-// const Home = () => {
-//   return <ResultContainer />;
-// };
-
-// export default Home;
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { ConvertBusTime } from "../types/BusTime";
@@ -76,19 +67,19 @@ export default function HomeContainer() {
           // → ResultDisplay
           setResultTime(numberTimeToString(resultData.BusTime));
           setResultMember(resultData.Member);
-          if (displayState !== "RESULT") setDisplayState("RESULT");
+          setDisplayState(prev => (prev !== "RESULT" ? "RESULT" : prev));
         } else {
           // result.Bustime を過ぎた → WaitingDisplay
           setResultTime(null);
           setResultMember(null);
-          if (displayState !== "WAITING") setDisplayState("WAITING");
+          setDisplayState(prev => (prev !== "WAITING" ? "WAITING" : prev));
         }
       } else {
         if (nowMinutes <= endtime) {
           // endtime前 → BusTimeDisplay
           setResultTime(null);
           setResultMember(null);
-          if (displayState !== "SELECT") setDisplayState("SELECT");
+          setDisplayState(prev => (prev !== "SELECT" ? "SELECT" : prev));
         } else {
           // endtime後 → post して無効result → ResultDisplay
           if (!hasPostedRef.current) {
@@ -96,7 +87,7 @@ export default function HomeContainer() {
           }
           setResultTime(null);
           setResultMember(null);
-          if (displayState !== "RESULT") setDisplayState("RESULT");
+          setDisplayState(prev => (prev !== "RESULT" ? "RESULT" : prev));
         }
       }
     } catch (err) {

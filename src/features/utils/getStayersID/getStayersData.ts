@@ -2,7 +2,7 @@ import { Stayer } from "@/src/types/Stayer";
 
 
 export async function getStayers(): Promise<number[]> {
-    const response = await fetch(`${process.env.BASE_URL}/api/stayers`);
+    const response = await fetch(`${process.env.REACT_API}/api/stayers`);
 
     if (!response.ok) {
         throw new Error(`滞在者情報取得失敗: ${response.status}`);

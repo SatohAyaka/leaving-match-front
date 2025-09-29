@@ -16,7 +16,7 @@ export default async function sendDMHandler(req: NextApiRequest, res: NextApiRes
         if (!response.ok) {
             return res.status(response.status).json({ error: "外部API呼び出しに失敗しました" });
         }
-        return res.status(200);
+        return res.status(200).json({ status: "ok" });
     } catch (err) {
         console.error("API呼び出し中にエラーが発生:", err);
         return res.status(500).json({ error: "サーバーエラーが発生しました" });

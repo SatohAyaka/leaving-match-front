@@ -1,5 +1,5 @@
 export async function postResult(bustimeId: number) {
-    const response = await fetch(`api/result/${bustimeId}`, {
+    const response = await fetch(`https://leaving-match.vercel.app/api/result/${bustimeId}`, {
         method: "POST",
     });
     if (!response.ok) {

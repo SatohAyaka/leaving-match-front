@@ -1,7 +1,7 @@
 import { Result } from "@/src/types/Result";
 
 export async function getLatestResult(): Promise<Result> {
-    const response = await fetch(`${process.env.REACT_API}/api/result/latest`);
+    const response = await fetch(`https://leaving-match.vercel.app/api/result/latest`);
     if (!response.ok) {
         throw new Error(`Result_Data取得失敗: ${response.status}`);
     }

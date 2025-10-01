@@ -1,4 +1,4 @@
-// pages/api/result/latest
+// pages/api/bustime/getBustime.ts
 
 import { ConvertBusTime, ResponseBustimeData } from '@/src/types/BusTime';
 

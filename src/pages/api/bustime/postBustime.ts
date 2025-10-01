@@ -1,3 +1,5 @@
+// pages/api/bustime/postBustime.ts
+
 import { SelectBusTime } from "@/src/types/BusTime";
 
 const BASE_URL = process.env.LEAVING_MATCH_API;

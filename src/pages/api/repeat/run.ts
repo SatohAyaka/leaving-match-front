@@ -1,6 +1,6 @@
 // src/pages/api/repeat/run.ts
 
-import { postBustime } from "@/src/features/utils/bustime/postBustime";
+import { postBustime } from "@/src/pages/api/bustime/postBustime";
 import { findNearBuses } from "@/src/features/utils/getBusTimes/findNearBusTimes";
 import { getStayers } from "@/src/features/utils/getStayersID/getStayersData";
 import { getDayOfWeek } from "@/src/features/utils/getStayersPrediction/getDayOfWeek";

@@ -1,3 +1,4 @@
+import "../styles/result.css";
 type Props = {
     previous: string | null;
     nearest: string | null;

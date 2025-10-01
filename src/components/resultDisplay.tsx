@@ -1,4 +1,4 @@
-import "../../styles/result.css";
+import "../styles/result.css";
 
 type Props = {
     bustime: string;

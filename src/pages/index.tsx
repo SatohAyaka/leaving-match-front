@@ -2,16 +2,17 @@ import { useRouter } from "next/router";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { ConvertBusTime } from "../types/BusTime";
 import { Result } from "../types/Result";
-import { getLatestBustime } from "../features/utils/bustime/getLatestBustime";
+
 import { getLatestResult } from "../features/utils/result/getLatestResult";
 import { stringTimeToNumber } from "../features/utils/recommendedDepartureTime/stringTimeToNumber";
 import { numberTimeToString } from "../features/utils/recommendedDepartureTime/numberTimeToString";
 import { postResult } from "../features/utils/result/postResult";
 
-import WaitingDisplay from "./components/waintingDisplay";
-import BusTimeDisplay from "./components/selectBustimeDisplay";
-import ResultDisplay from "./components/resultDisplay";
+import WaitingDisplay from "../components/waintingDisplay";
+import BusTimeDisplay from "../components/selectBustimeDisplay";
+import ResultDisplay from "../components/resultDisplay";
 import { getCurrentVote } from "../features/utils/vote/getCurrentVote";
+import getLatestBustime from "./api/bustime/getLatestBustime";
 
 type DisplayState = "WAITING" | "RESULT" | "SELECT";
 

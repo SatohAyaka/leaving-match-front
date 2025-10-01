@@ -1,12 +1,8 @@
 import { BusTime } from "@/src/types/Bus";
+import { fetchApi } from "../../lib/fetchApi";
 
 export async function GetBusTime(): Promise<BusTime[]> {
-    const res = await fetch(`https://leaving-match.vercel.app/api/allBustime`);
-    if (!res.ok) {
-        throw new Error(`バス時刻の取得に失敗: ${res.status}`);
-    }
-
-    const allTimes: BusTime[] = await res.json();
+    const allTimes = await fetchApi<BusTime[]>(`api/allBustime`);
     return allTimes;
 
 }

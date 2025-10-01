@@ -1,16 +1,12 @@
 import { SelectBusTime } from "@/src/types/BusTime";
+import { fetchApi } from "../../lib/fetchApi";
 
 export async function postBustime(recommendedId: number, selectBustime: SelectBusTime) {
-    const previous = selectBustime.previousTime;
-    const nearest = selectBustime.nearestTime;
-    const next = selectBustime.nextTime;
+    const { previousTime, nearestTime, nextTime } = selectBustime;
 
-    const response = await fetch(`https://leaving-match.vercel.app/api/bustime/${recommendedId}?previous=${previous}&nearest=${nearest}&next=${next}`, {
-        method: "POST",
-    });
-    if (!response.ok) {
-        throw new Error(`BustimeId取得失敗: ${response.status}`);
-    }
-    const bustimeId: number = await response.json();
+    const bustimeId = await fetchApi<number>(
+        `/api/bustime/${recommendedId}?previous=${previousTime}&nearest=${nearestTime}&next=${nextTime}`,
+        { method: "POST" }
+    );
     return bustimeId;
 }

@@ -5,7 +5,7 @@ export async function fetchApi<T>(
 ): Promise<T> {
     const baseUrl =
         typeof window === "undefined"
-            ? process.env.BASE_URL || "https://leaving-match.vercel.app"
+            ? process.env.NEXT_PUBLIC_API_BASE_URL || "https://leaving-match.vercel.app"
             : "";
 
     const res = await fetch(`${baseUrl}${path}`, {

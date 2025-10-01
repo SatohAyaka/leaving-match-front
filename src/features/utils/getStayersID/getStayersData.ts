@@ -1,15 +1,8 @@
 import { Stayer } from "@/src/types/Stayer";
+import { fetchApi } from "../../lib/fetchApi";
 
 
 export async function getStayers(): Promise<number[]> {
-    const response = await fetch(`https://leaving-match.vercel.app/api/stayers`);
-
-    if (!response.ok) {
-        throw new Error(`滞在者情報取得失敗: ${response.status}`);
-    }
-
-    const stayersData: Stayer[] = await response.json();
-    const userId: number[] = stayersData.map((stayer) => stayer.id)
-    console.log(userId);
-    return userId;
+    const stayersData: Stayer[] = await fetchApi<Stayer[]>("/api/stayers");
+    return stayersData.map((stayer) => stayer.id);
 }

@@ -1,4 +1,5 @@
 import { SelectBusTime } from "@/src/types/BusTime";
+import { fetchApi } from "../../lib/fetchApi";
 
 export default async function sendDMs(memberIds: number[], bustimes: SelectBusTime) {
     const query = new URLSearchParams();
@@ -13,13 +14,7 @@ export default async function sendDMs(memberIds: number[], bustimes: SelectBusTi
         query.append("bustime", bustimes.nextTime.toString());
     }
 
-
-    const response = await fetch(`https://leaving-match.vercel.app/api/slack/notify?${query.toString()}`, {
+    await fetchApi(`/api/slack/notify?${query.toString()}`, {
         method: "POST",
     });
-
-    if (!response.ok) {
-        throw new Error(`推奨時刻保存失敗: ${response.status}`);
-    }
-    return;
 }

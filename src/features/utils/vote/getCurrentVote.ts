@@ -1,16 +1,8 @@
 import { Vote } from "@/src/types/Vote";
+import { fetchApi } from "../../lib/fetchApi";
 
 export async function getCurrentVote(): Promise<Vote> {
-    const response = await fetch(`https://leaving-match.vercel.app/api/bustime/latest`);
-    if (!response.ok) {
-        throw new Error(`BustimeId取得失敗: ${response.status}`);
-    }
-    const bustimeId: number = await response.json();
-
-    const voteResponse = await fetch(`https://leaving-match.vercel.app/api/vote/${bustimeId}`);
-    if (!voteResponse.ok) {
-        throw new Error(`Vote_Data取得失敗: ${voteResponse.status}`);
-    }
-    const voteData: Vote = await voteResponse.json();
+    const bustimeId: number = await fetchApi<number>(`/api/bustime/latest`);
+    const voteData: Vote = await fetchApi<Vote>(`/api/vote/${bustimeId}`);
     return voteData;
 }

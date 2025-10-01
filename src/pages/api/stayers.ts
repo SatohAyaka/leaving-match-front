@@ -1,31 +1,27 @@
 // pages/api/stayers.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+
+import { Stayer } from "@/src/types/Stayer";
+
 const BASE_URL = process.env.STAY_WATCH_URL;
 const ENDPOINT = process.env.STAYERS_API;
 
-export default async function stayersHandler(req: NextApiRequest, res: NextApiResponse) {
+export default async function getStayers(): Promise<number[]> {
     const API_KEY = process.env.API_KEY;
     if (!BASE_URL || !ENDPOINT || !API_KEY) {
-        return res.status(500).json({ error: "環境変数が不足しています" });
+        throw new Error("環境変数が不足しています");
     }
 
-    try {
-        const response = await fetch(`${BASE_URL}${ENDPOINT}`, {
-            headers: {
-                'X-API-Key': API_KEY || ''
-            }
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('外部APIエラー:', errorText);
-            return res.status(response.status).json({ error: '外部API呼び出しに失敗しました' });
+    const response = await fetch(`${BASE_URL}${ENDPOINT}`, {
+        headers: {
+            'X-API-Key': API_KEY || ''
         }
+    });
 
-        const data = await response.json();
-        res.status(200).json(data);
-    } catch (err) {
-        console.error('API呼び出し失敗:', err);
-        return res.status(500).json({ error: 'サーバーエラーが発生しました' });
+    if (!response.ok) {
+        throw new Error(`外部API呼び出しに失敗しました: ${response.status}`);
     }
+
+    const stayersData: Stayer[] = await response.json();
+    const stayerIds: number[] = stayersData.map((stayer) => stayer.id);
+    return stayerIds;
 }

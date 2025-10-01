@@ -2,7 +2,7 @@
 
 import { postBustime } from "@/src/pages/api/bustime/postBustime";
 import { findNearBuses } from "@/src/features/utils/getBusTimes/findNearBusTimes";
-import { getStayers } from "@/src/features/utils/getStayersID/getStayersData";
+import getStayers from "../stayers";
 import { getDayOfWeek } from "@/src/features/utils/getStayersPrediction/getDayOfWeek";
 import { getPredicton } from "@/src/features/utils/getStayersPrediction/getPrediction";
 import { postRecommended } from "@/src/features/utils/recommended/postRecommended";

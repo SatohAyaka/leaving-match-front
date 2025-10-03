@@ -11,11 +11,10 @@ import { getSectionMembers } from "@/src/features/utils/recommendedDepartureTime
 import { minDiff } from "@/src/features/utils/recommendedDepartureTime/minDiff";
 import { timeSort } from "@/src/features/utils/recommendedDepartureTime/timeSort";
 import { getAverage } from "@/src/features/utils/recommendedDepartureTime/weightingAverage";
-import sendDMs from "@/src/features/utils/slack/sendDM";
+import sendDM from "../lib/api/slack/notify";
 import { usePrediction } from "@/src/types/Prediction";
 import { Recommended } from "@/src/types/Recommended";
 import type { NextApiRequest, NextApiResponse } from "next";
-
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -50,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const bustimeId = await postBustime(recommended.id, bustime);
 
         // await sendDMs(memberIds, bustime);
-        await sendDMs([90], bustime);
+        await sendDM([90], bustime);
 
         return res.status(200).json({ status: "ok", bustimeId });
     } catch (err) {

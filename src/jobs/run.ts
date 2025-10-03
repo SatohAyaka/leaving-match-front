@@ -5,7 +5,7 @@ import { findNearBuses } from "@/src/features/utils/getBusTimes/findNearBusTimes
 import getStayers from "../pages/api/stayers";
 import { getDayOfWeek } from "@/src/features/utils/getStayersPrediction/getDayOfWeek";
 import { getPredicton } from "@/src/features/utils/getStayersPrediction/getPrediction";
-import { postRecommended } from "@/src/features/utils/recommended/postRecommended";
+import postRecommended from "../lib/api/recommended/postRecommended";
 import { findMaxCountInterval } from "@/src/features/utils/recommendedDepartureTime/getSection";
 import { getSectionMembers } from "@/src/features/utils/recommendedDepartureTime/getSectionMembers";
 import { minDiff } from "@/src/features/utils/recommendedDepartureTime/minDiff";

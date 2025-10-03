@@ -12,7 +12,7 @@ import WaitingDisplay from "../components/waintingDisplay";
 import BusTimeDisplay from "../components/selectBustimeDisplay";
 import ResultDisplay from "../components/resultDisplay";
 import { getCurrentVote } from "../features/utils/vote/getCurrentVote";
-import getLatestBustime from "./api/bustime/getLatestBustime";
+import getLatestBustime from "../lib/api/bustime/getLatestBustime";
 
 type DisplayState = "WAITING" | "RESULT" | "SELECT";
 

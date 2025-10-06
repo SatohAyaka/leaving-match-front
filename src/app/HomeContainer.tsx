@@ -6,7 +6,6 @@ import { Result } from "../types/Result";
 import postResult from "../lib/api/result/postResult";
 import { numberTimeToString } from "../features/utils/recommendedDepartureTime/numberTimeToString";
 import { stringTimeToNumber } from "../features/utils/recommendedDepartureTime/stringTimeToNumber";
-import getVote from "../lib/api/vote/getVote";
 
 import WaitingDisplay from "../components/waintingDisplay";
 import ResultDisplay from "../components/resultDisplay";
@@ -59,7 +58,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       const bustimeId = bustimeData.bustimeId;
       const endtime = stringTimeToNumber(bustimeData.endTime);
 
-      const votes = await getVote(bustimeId);
       setPreviousVote(votes.previous);
       setNearestVote(votes.nearest);
       setNextVote(votes.next);

@@ -1,6 +1,6 @@
 // lib/api/result/getResult.ts
 
-import { stringTimeToNumber } from '@/src/features/utils/recommendedDepartureTime/stringTimeToNumber';
+import { stringTimeToNumber } from '@/src/utils/stringTimeToNumber';
 import { Result, ResultResponce } from '@/src/types/Result';
 
 const BASE_URL = process.env.LEAVING_MATCH_API;

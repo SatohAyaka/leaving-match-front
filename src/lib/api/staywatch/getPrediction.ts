@@ -1,6 +1,6 @@
 // lib/api/getprediction.ts
 
-import { stringTimeToNumber } from "@/src/features/utils/recommendedDepartureTime/stringTimeToNumber";
+import { stringTimeToNumber } from "@/src/utils/stringTimeToNumber";
 import { GetPrediction, Prediction, usePrediction } from "@/src/types/Prediction";
 
 const BASE_URL = process.env.STAY_WATCH_URL;

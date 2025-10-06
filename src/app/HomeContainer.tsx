@@ -4,8 +4,8 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { ConvertBusTime } from "../types/BusTime";
 import { Result } from "../types/Result";
 import postResult from "../lib/api/result/postResult";
-import { numberTimeToString } from "../features/utils/recommendedDepartureTime/numberTimeToString";
-import { stringTimeToNumber } from "../features/utils/recommendedDepartureTime/stringTimeToNumber";
+import { numberTimeToString } from "../utils/numberTimeToString";
+import { stringTimeToNumber } from "../utils/stringTimeToNumber";
 
 import WaitingDisplay from "../components/waintingDisplay";
 import ResultDisplay from "../components/resultDisplay";

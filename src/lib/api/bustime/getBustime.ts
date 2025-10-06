@@ -1,4 +1,4 @@
-// pages/api/bustime/getBustime.ts
+// lib/api/bustime/getBustime.ts
 
 import { ConvertBusTime, ResponseBustimeData } from '@/src/types/BusTime';
 
@@ -15,8 +15,7 @@ export default async function getBusTime(bustimeId: number): Promise<ConvertBusT
         throw new Error(`外部API呼び出しに失敗しました: ${response.status}`);
     }
 
-    const responseData = await response.json();
-    const bustimeData: ResponseBustimeData[] = await responseData.json();
+    const bustimeData: ResponseBustimeData[] = await response.json();
     if (bustimeData.length === 0) {
         throw new Error("BusTimeデータが存在しません");
     }

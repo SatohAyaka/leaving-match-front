@@ -1,9 +1,9 @@
+import getAllBusTime from "@/src/lib/api/busapi/getAllBustime";
 import { BusTime } from "@/src/types/Bus";
-import { GetBusTime } from "./getAllBusTimes";
 import { SelectBusTime } from "@/src/types/BusTime";
 
 export async function findNearBuses(targetMinutes: number): Promise<SelectBusTime> {
-    const allTimes: BusTime[] = await GetBusTime();
+    const allTimes: BusTime[] = await getAllBusTime();
 
     let previous: number = 0;
     let nearest: number = 0;

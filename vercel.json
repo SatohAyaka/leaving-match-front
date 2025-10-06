@@ -1,10 +1,7 @@
 {
-    "env": {
-        "REACT_API": "https://leaving-match.vercel.app"
-    },
     "crons": [
         {
-            "path": "/api/repeat/run",
+            "path": "/api/run",
             "schedule": "*/30 * * * *"
         }
     ]

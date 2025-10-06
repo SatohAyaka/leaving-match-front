@@ -2,7 +2,7 @@
 
 const BASE_URL = process.env.LEAVING_MATCH_API;
 const ROUTER_PARAMS = process.env.LEAVING_MATCH_RECOMMENDED;
-const LATEST_ENDPOINT = process.env.LATEST_EMDPOINT;
+const LATEST_ENDPOINT = process.env.LATEST_ENDPOINT;
 const ENDPOINT = process.env.STATUS_ENDPOINT;
 
 export default async function getLatestStatus(): Promise<boolean> {

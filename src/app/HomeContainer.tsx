@@ -1,37 +1,43 @@
-import { useRouter } from "next/router";
+"use client";
 import { useEffect, useState, useRef, useCallback } from "react";
+
 import { ConvertBusTime } from "../types/BusTime";
 import { Result } from "../types/Result";
-
-import { getLatestResult } from "../features/utils/result/getLatestResult";
-import { stringTimeToNumber } from "../features/utils/recommendedDepartureTime/stringTimeToNumber";
+import postResult from "../lib/api/result/postResult";
 import { numberTimeToString } from "../features/utils/recommendedDepartureTime/numberTimeToString";
-import { postResult } from "../features/utils/result/postResult";
+import { stringTimeToNumber } from "../features/utils/recommendedDepartureTime/stringTimeToNumber";
+import getVote from "../lib/api/vote/getVote";
 
 import WaitingDisplay from "../components/waintingDisplay";
-import BusTimeDisplay from "../components/selectBustimeDisplay";
 import ResultDisplay from "../components/resultDisplay";
-import { getCurrentVote } from "../features/utils/vote/getCurrentVote";
-import getLatestBustime from "../lib/api/bustime/getLatestBustime";
+import BusTimeDisplay from "../components/selectBustimeDisplay";
+
 
 type DisplayState = "WAITING" | "RESULT" | "SELECT";
 
-export default function HomeContainer() {
-  const router = useRouter();
+type Props = {
+  bustimeData: ConvertBusTime;
+  resultData: Result;
+  votes: { previous: number; nearest: number; next: number };
+};
 
+export default function HomeContainer({ bustimeData, resultData, votes }: Props) {
   // 共通状態
-  const [previous, setPrevious] = useState<string | null>(null);
-  const [nearest, setNearest] = useState<string | null>(null);
-  const [next, setNext] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [previous, setPrevious] = useState<string | null>(bustimeData.previousTime);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [nearest, setNearest] = useState<string | null>(bustimeData.nearestTime);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [next, setNext] = useState<string | null>(bustimeData.nextTime);
 
-  const [resultTime, setResultTime] = useState<string | null>(null);
-  const [resultMember, setResultMember] = useState<number | null>(null);
+  const [resultTime, setResultTime] = useState<string | null>(numberTimeToString(resultData.BusTimeId));
+  const [resultMember, setResultMember] = useState<number | null>(resultData.Member);
 
   const [displayState, setDisplayState] = useState<DisplayState>("SELECT");
 
-  const [previousVote, setPreviousVote] = useState<number>(0);
-  const [nearestVote, setNearestVote] = useState<number>(0);
-  const [nextVote, setNextVote] = useState<number>(0);
+  const [previousVote, setPreviousVote] = useState<number>(votes.previous);
+  const [nearestVote, setNearestVote] = useState<number>(votes.nearest);
+  const [nextVote, setNextVote] = useState<number>(votes.next);
 
 
   const hasPostedRef = useRef(false);
@@ -41,32 +47,23 @@ export default function HomeContainer() {
     hasPostedRef.current = true;
     try {
       await postResult(bustimeId);
-      const resultData = await getLatestResult();
       setResultTime(numberTimeToString(resultData.BusTime));
       setResultMember(resultData.Member);
     } catch (err) {
       console.error("postResult失敗:", err);
     }
-  }, []);
+  }, [resultData]);
 
   const updateData = useCallback(async () => {
     try {
-      // 最新バス時刻取得
-      const bustimeData: ConvertBusTime = await getLatestBustime();
-      setPrevious(bustimeData.previousTime);
-      setNearest(bustimeData.nearestTime);
-      setNext(bustimeData.nextTime);
-
       const bustimeId = bustimeData.bustimeId;
       const endtime = stringTimeToNumber(bustimeData.endTime);
 
-      const votes = await getCurrentVote();
+      const votes = await getVote(bustimeId);
       setPreviousVote(votes.previous);
       setNearestVote(votes.nearest);
       setNextVote(votes.next);
 
-      // 最新 result 取得
-      const resultData: Result = await getLatestResult();
       const hasResult = resultData.BusTimeId === bustimeId && resultData.BusTime !== 0;
 
       // 現在時刻取得
@@ -105,15 +102,13 @@ export default function HomeContainer() {
     } catch (err) {
       console.error(err);
     }
-  }, [handlePostAndUpdate]);
+  }, [bustimeData, resultData, handlePostAndUpdate]);
 
   useEffect(() => {
-    if (!router.isReady) return;
-
     updateData();
     const interval = setInterval(updateData, 60 * 1000); // 1分ごと
     return () => clearInterval(interval);
-  }, [router, updateData]);
+  }, [updateData]);
 
   switch (displayState) {
     case "WAITING":

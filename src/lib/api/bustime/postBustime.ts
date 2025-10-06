@@ -1,4 +1,4 @@
-// pages/api/bustime/postBustime.ts
+// lib/api/bustime/postBustime.ts
 
 import { SelectBusTime } from "@/src/types/BusTime";
 

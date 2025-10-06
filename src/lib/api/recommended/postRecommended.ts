@@ -1,4 +1,4 @@
-// pages/api/recommended.ts
+// lib/api/recommended.ts
 
 import { Recommended } from '@/src/types/Recommended';
 

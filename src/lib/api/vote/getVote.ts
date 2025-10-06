@@ -1,4 +1,4 @@
-// pages/api/vote/getVote.ts
+// lib/api/vote/getVote.ts
 
 import { Vote, VoteResponse } from '@/src/types/Vote';
 

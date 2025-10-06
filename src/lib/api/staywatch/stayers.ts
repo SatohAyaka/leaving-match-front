@@ -1,4 +1,4 @@
-// pages/api/stayers.ts
+// lib/api/stayers.ts
 
 import { Stayer } from "@/src/types/Stayer";
 

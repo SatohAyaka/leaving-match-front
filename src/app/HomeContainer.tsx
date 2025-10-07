@@ -120,7 +120,8 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
     case "RESULT":
       return <ResultDisplay bustime={resultTime!} member={resultMember} />;
     case "SELECT":
-    default:
       return <BusTimeDisplay previous={previous} nearest={nearest} next={next} previousVote={previousVote} nearestVote={nearestVote} nextVote={nextVote} />;
+    default:
+      return <WaitingDisplay />;
   }
 }

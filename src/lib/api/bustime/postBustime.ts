@@ -18,6 +18,7 @@ export async function postBustime(recommendedId: number, selectBustime: SelectBu
     });
 
     const apiUrl = new URL(`${ENDPOINT}/${recommendedId}?${searchParams.toString()}`, BASE_URL).toString();
+    console.log("postRecommended URL:", apiUrl);
 
     const response = await fetch(apiUrl, {
         method: "POST",

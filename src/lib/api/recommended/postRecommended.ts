@@ -15,6 +15,8 @@ export default async function postRecommended(recommendedTime: number, memberIds
     memberIds.forEach(id => query.append("member", id.toString()));
 
     const apiUrl = `${BASE_URL}${ENDPOINT}?${query}`;
+    console.log("postRecommended URL:", apiUrl);
+
     const response = await fetch(apiUrl, {
         method: "POST",
         headers: {

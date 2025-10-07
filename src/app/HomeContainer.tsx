@@ -15,28 +15,28 @@ import BusTimeDisplay from "../components/selectBustimeDisplay";
 type DisplayState = "WAITING" | "RESULT" | "SELECT";
 
 type Props = {
-  bustimeData: ConvertBusTime;
-  resultData: Result;
-  votes: { previous: number; nearest: number; next: number };
+  bustimeData: ConvertBusTime | null;
+  resultData: Result | null;
+  votes: { previous: number; nearest: number; next: number } | null;
 };
 
 export default function HomeContainer({ bustimeData, resultData, votes }: Props) {
   // 共通状態
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [previous, setPrevious] = useState<string | null>(bustimeData.previousTime);
+  const [previous, setPrevious] = useState<string | null>(bustimeData?.previousTime ?? null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [nearest, setNearest] = useState<string | null>(bustimeData.nearestTime);
+  const [nearest, setNearest] = useState<string | null>(bustimeData?.nearestTime ?? null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [next, setNext] = useState<string | null>(bustimeData.nextTime);
+  const [next, setNext] = useState<string | null>(bustimeData?.nextTime ?? null);
 
-  const [resultTime, setResultTime] = useState<string | null>(numberTimeToString(resultData.BusTimeId));
-  const [resultMember, setResultMember] = useState<number | null>(resultData.Member);
+  const [resultTime, setResultTime] = useState<string | null>(numberTimeToString(resultData?.BusTime ?? 0));
+  const [resultMember, setResultMember] = useState<number | null>(resultData?.Member ?? 0);
 
   const [displayState, setDisplayState] = useState<DisplayState>("SELECT");
 
-  const [previousVote, setPreviousVote] = useState<number>(votes.previous);
-  const [nearestVote, setNearestVote] = useState<number>(votes.nearest);
-  const [nextVote, setNextVote] = useState<number>(votes.next);
+  const [previousVote, setPreviousVote] = useState<number>(votes?.previous ?? 0);
+  const [nearestVote, setNearestVote] = useState<number>(votes?.nearest ?? 0);
+  const [nextVote, setNextVote] = useState<number>(votes?.next ?? 0);
 
 
   const hasPostedRef = useRef(false);
@@ -46,8 +46,10 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
     hasPostedRef.current = true;
     try {
       await postResult(bustimeId);
-      setResultTime(numberTimeToString(resultData.BusTime));
-      setResultMember(resultData.Member);
+      if (resultData) {
+        setResultTime(numberTimeToString(resultData.BusTime));
+        setResultMember(resultData.Member);
+      }
     } catch (err) {
       console.error("postResult失敗:", err);
     }
@@ -55,14 +57,18 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
 
   const updateData = useCallback(async () => {
     try {
+      if (!bustimeData) {
+        console.warn("bustimeが登録されていません.");
+        return;
+      }
       const bustimeId = bustimeData.bustimeId;
       const endtime = stringTimeToNumber(bustimeData.endTime);
 
-      setPreviousVote(votes.previous);
-      setNearestVote(votes.nearest);
-      setNextVote(votes.next);
+      setPreviousVote(votes?.previous ?? 0);
+      setNearestVote(votes?.nearest ?? 0);
+      setNextVote(votes?.next ?? 0);
 
-      const hasResult = resultData.BusTimeId === bustimeId && resultData.BusTime !== 0;
+      const hasResult = resultData && resultData.BusTimeId === bustimeId && resultData.BusTime !== 0;
 
       // 現在時刻取得
       const now = new Date();
@@ -74,19 +80,19 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           // → ResultDisplay
           setResultTime(numberTimeToString(resultData.BusTime));
           setResultMember(resultData.Member);
-          setDisplayState(prev => (prev !== "RESULT" ? "RESULT" : prev));
+          setDisplayState("RESULT");
         } else {
           // result.Bustime を過ぎた → WaitingDisplay
           setResultTime(null);
           setResultMember(null);
-          setDisplayState(prev => (prev !== "WAITING" ? "WAITING" : prev));
+          setDisplayState("WAITING");
         }
       } else {
         if (nowMinutes <= endtime) {
           // endtime前 → BusTimeDisplay
           setResultTime(null);
           setResultMember(null);
-          setDisplayState(prev => (prev !== "SELECT" ? "SELECT" : prev));
+          setDisplayState("SELECT");
         } else {
           // endtime後 → post して無効result → ResultDisplay
           if (!hasPostedRef.current) {
@@ -94,13 +100,13 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           }
           setResultTime(null);
           setResultMember(null);
-          setDisplayState(prev => (prev !== "RESULT" ? "RESULT" : prev));
+          setDisplayState("RESULT");
         }
       }
     } catch (err) {
       console.error(err);
     }
-  }, [bustimeData, resultData, handlePostAndUpdate]);
+  }, [bustimeData, resultData, votes, handlePostAndUpdate]);
 
   useEffect(() => {
     updateData();

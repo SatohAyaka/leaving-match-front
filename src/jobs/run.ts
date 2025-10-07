@@ -16,6 +16,7 @@ import { usePrediction } from "@/src/types/Prediction";
 import { Recommended } from "@/src/types/Recommended";
 
 export default async function runJob() {
+    console.log("=== Vercel Cron runJob Start ===");
     const stayers = await getStayers();
     if (!stayers || stayers.length <= 1) {
         return { status: "skip", reason: "stayers <= 1" };

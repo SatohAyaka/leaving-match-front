@@ -16,36 +16,53 @@ import { usePrediction } from "@/src/types/Prediction";
 import { Recommended } from "@/src/types/Recommended";
 
 export default async function runJob() {
-    const stayers = await getStayers();
+    console.log("=== JOB START ===");
+    const stayers = await getStayers().catch((e) => {
+        console.error("getStayers error:", e);
+        throw e;
+    });
     if (!stayers || stayers.length <= 1) {
         return { status: "skip", reason: "stayers <= 1" };
     }
 
     const weekDay: number = getDayOfWeek();
-    const stayerPrediction: usePrediction[] = await getPrediction(weekDay, stayers);
+    const stayerPrediction: usePrediction[] = await getPrediction(weekDay, stayers).catch((e) => {
+        console.error("getPrediction error:", e);
+        throw e;
+    });
     const sored: number[] = timeSort(stayerPrediction);
     const [start, end, count] = findMaxCountInterval(sored, 30);
+    console.log("interval:", { start, end, count });
     if (count == 1) {
         return { status: "skip", reason: "member == 1" };
     }
 
     const [members, mindiff] = minDiff(sored, start, end);
+    console.log("members/mindiff:", members, mindiff);
     if (members.length == 2 && mindiff == 30) {
         return { status: "skip", reason: "members diff == 30" };
     }
     const average = getAverage(members, sored);
 
     const memberIds = getSectionMembers(start, end, stayerPrediction);
-    const recommended: Recommended = await postRecommended(Math.round(average), memberIds);
+    const recommended: Recommended = await postRecommended(Math.round(average), memberIds).catch((e) => {
+        console.error("postRecommended error:", e);
+        throw e;
+    });
+
     if (recommended.status == false) {
         return { status: "skip", reason: "recommended status == false" };
     }
 
     const bustime = await findNearBuses(average);
-    const bustimeId = await postBustime(recommended.id, bustime);
+    const bustimeId = await postBustime(recommended.id, bustime).catch((e) => {
+        console.error("postBustime error:", e);
+        throw e;
+    });
 
     // await sendDMs(memberIds, bustime);
     await sendDM([90], bustime);
 
+    console.log("=== JOB END ===");
     return { status: "ok", bustimeId };
 }

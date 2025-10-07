@@ -50,12 +50,12 @@ export default async function runJob() {
         throw e;
     });
 
-    if (recommended.status == false) {
+    if (recommended.Status == false) {
         return { status: "skip", reason: "recommended status == false" };
     }
 
     const bustime = await findNearBuses(average);
-    const bustimeId = await postBustime(recommended.id, bustime).catch((e) => {
+    const bustimeId = await postBustime(recommended.RecommendedId, bustime).catch((e) => {
         console.error("postBustime error:", e);
         throw e;
     });

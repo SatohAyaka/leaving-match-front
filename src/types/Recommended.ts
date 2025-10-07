@@ -1,4 +1,4 @@
 export type Recommended = {
-    id: number,
-    status: boolean
+    RecommendedId: number,
+    Status: boolean
 }

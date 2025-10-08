@@ -8,7 +8,7 @@ type Props = {
 export default function ResultDisplay({ bustime, member }: Props) {
     return (
         <div className="display night">
-            {member !== 0 && (
+            {member !== 0 && member != null && (
                 <div className="balloon">
                     {member !== 1 ? `${member}人くらいと` : "数人と"} <br />
                     一緒に帰れるかも？

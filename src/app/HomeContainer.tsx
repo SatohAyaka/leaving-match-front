@@ -93,7 +93,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultTime(null);
           setResultMember(null);
           setDisplayState("SELECT");
-        } else if (bustimeId) {
+        } else if (bustimeData != null) {
           // endtime後 → postして無効result → ResultDisplay
           if (!hasPostedRef.current) {
             await handlePostAndUpdate(bustimeId);

@@ -93,14 +93,18 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultTime(null);
           setResultMember(null);
           setDisplayState("SELECT");
-        } else {
-          // endtime後 → post して無効result → ResultDisplay
+        } else if (bustimeId) {
+          // endtime後 → postして無効result → ResultDisplay
           if (!hasPostedRef.current) {
             await handlePostAndUpdate(bustimeId);
           }
           setResultTime(null);
           setResultMember(null);
           setDisplayState("RESULT");
+        } else {
+          setResultTime(null);
+          setResultMember(null);
+          setDisplayState("WAITING");
         }
       }
     } catch (err) {

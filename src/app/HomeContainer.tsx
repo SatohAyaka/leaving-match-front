@@ -68,7 +68,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       setNearestVote(votes?.nearest ?? 0);
       setNextVote(votes?.next ?? 0);
 
-      const hasResult = resultData && resultData.BusTimeId === bustimeId && resultData.BusTime !== 0;
+      const hasResult = resultData != null && resultData.BusTimeId === bustimeId && resultData.BusTime !== 0;
 
       // 現在時刻取得
       const now = new Date();

@@ -6,6 +6,9 @@ const BASE_URL = process.env.LEAVING_MATCH_API;
 const ENDPOINT = process.env.LEAVING_MATCH_BUSTIME;
 
 export async function postBustime(recommendedId: number, selectBustime: SelectBusTime): Promise<number> {
+    if (!BASE_URL || !ENDPOINT) {
+        throw new Error("APIのURLが設定されていません");
+    }
     const { previousTime, nearestTime, nextTime } = selectBustime;
     const previous = previousTime.toString();
     const nearest = nearestTime.toString();
@@ -17,7 +20,7 @@ export async function postBustime(recommendedId: number, selectBustime: SelectBu
         next,
     });
 
-    const apiUrl = new URL(`${ENDPOINT}/${recommendedId}?${searchParams.toString()}`, BASE_URL).toString();
+    const apiUrl = new URL(`${BASE_URL.replace(/\/$/, "")}/${ENDPOINT.replace(/^\//, "")}/${recommendedId}?${searchParams.toString()}`).toString();
     console.log("postRecommended URL:", apiUrl);
 
     const response = await fetch(apiUrl, {

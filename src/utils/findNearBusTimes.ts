@@ -3,7 +3,7 @@ import { BusTime } from "@/src/types/Bus";
 import { SelectBusTime } from "@/src/types/BusTime";
 
 export async function findNearBuses(averageMinutes: number): Promise<SelectBusTime> {
-    const targetMinutes = averageMinutes - 5;
+    const targetMinutes = averageMinutes + 5;
     const allTimes: BusTime[] = await getAllBusTime();
 
     let previous: number = 0;

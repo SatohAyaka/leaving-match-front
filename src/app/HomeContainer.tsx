@@ -10,7 +10,7 @@ import { stringTimeToNumber } from "../utils/stringTimeToNumber";
 import WaitingDisplay from "../components/waintingDisplay";
 import ResultDisplay from "../components/resultDisplay";
 import BusTimeDisplay from "../components/selectBustimeDisplay";
-import { notifyWithSound } from "../utils/notifyWithSound";
+import { notifyWithSound } from "../utils/notify/notifyWithSound";
 
 
 type DisplayState = "WAITING" | "RESULT" | "SELECT";

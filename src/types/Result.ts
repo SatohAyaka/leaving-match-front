@@ -11,4 +11,5 @@ export type Result = {
     BusTime: number;
     Member: number;
     serverNow: string;
+    dateJadge: boolean;
 }

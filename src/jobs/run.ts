@@ -43,6 +43,9 @@ export default async function runJob() {
         return { status: "skip", reason: "members diff == 30" };
     }
     const average = getAverage(members, sored);
+    if (average == 0) {
+        return { status: "skip", reason: "average == 0" };
+    }
 
     const memberIds = getSectionMembers(start, end, stayerPrediction);
     const recommended: Recommended = await postRecommended(Math.round(average), memberIds).catch((e) => {

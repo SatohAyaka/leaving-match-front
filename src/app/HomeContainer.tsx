@@ -74,6 +74,14 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       const now = new Date();
       const nowMinutes = now.getHours() * 60 + now.getMinutes();
 
+      if (resultData && resultData.dateJadge === false) {
+        // 日付が異なる場合は無条件で WAITING
+        setResultTime(null);
+        setResultMember(null);
+        setDisplayState("WAITING");
+        return;
+      }
+
       // result がある場合
       if (hasResult) {
         if (nowMinutes < resultData.BusTime) {

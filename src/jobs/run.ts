@@ -48,6 +48,9 @@ export default async function runJob() {
     }
 
     const memberIds = getSectionMembers(start, end, stayerPrediction);
+    if (memberIds.length == 0) {
+        return { status: "skip", reason: "member == 0" };
+    }
     const recommended: Recommended = await postRecommended(Math.round(average), memberIds).catch((e) => {
         console.error("postRecommended error:", e);
         throw e;

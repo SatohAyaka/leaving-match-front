@@ -10,6 +10,7 @@ import { stringTimeToNumber } from "../utils/stringTimeToNumber";
 import WaitingDisplay from "../components/waintingDisplay";
 import ResultDisplay from "../components/resultDisplay";
 import BusTimeDisplay from "../components/selectBustimeDisplay";
+import { notifyWithSound } from "../utils/notifyWithSound";
 
 
 type DisplayState = "WAITING" | "RESULT" | "SELECT";
@@ -50,6 +51,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
         setResultTime(numberTimeToString(resultData.BusTime));
         setResultMember(resultData.Member);
       }
+      await notifyWithSound("投票結果を保存しました");
     } catch (err) {
       console.error("postResult失敗:", err);
     }

@@ -1,4 +1,4 @@
-// src/utils/notifyWithSound.ts
+// src/utils/notify/notifyWithSound.ts
 
 export async function notifyWithSound(message: string, soundPath: string = "/sounds/notify.mp3") {
     try {

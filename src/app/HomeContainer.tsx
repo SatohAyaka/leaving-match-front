@@ -32,7 +32,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
   const [resultTime, setResultTime] = useState<string | null>(numberTimeToString(resultData?.BusTime ?? 0));
   const [resultMember, setResultMember] = useState<number | null>(resultData?.Member ?? 0);
 
-  const [displayState, setDisplayState] = useState<DisplayState>("SELECT");
+  const [displayState, setDisplayState] = useState<DisplayState>("WAITING");
 
   const [previousVote, setPreviousVote] = useState<number>(votes?.previous ?? 0);
   const [nearestVote, setNearestVote] = useState<number>(votes?.nearest ?? 0);

@@ -7,15 +7,13 @@ export async function notifyWithSound(message: string, soundPath: string = "/sou
 
         if (Notification.permission === "granted") {
             new Notification(message, {
-                body: "結果が更新されました。",
-                icon: "/icon.png", // 任意
+                body: "結果が更新されました。"
             });
         } else if (Notification.permission !== "denied") {
             const permission = await Notification.requestPermission();
             if (permission === "granted") {
                 new Notification(message, {
-                    body: "結果が更新されました。",
-                    icon: "/icon.png",
+                    body: "結果が更新されました。"
                 });
             }
         }

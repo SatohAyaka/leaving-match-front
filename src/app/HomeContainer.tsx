@@ -11,6 +11,7 @@ import WaitingDisplay from "../components/waintingDisplay";
 import ResultDisplay from "../components/resultDisplay";
 import BusTimeDisplay from "../components/selectBustimeDisplay";
 import { notifyWithSound } from "../utils/notify/notifyWithSound";
+import { initNotification } from "../utils/notify/initNotification";
 
 
 type DisplayState = "WAITING" | "RESULT" | "SELECT";
@@ -22,6 +23,11 @@ type Props = {
 };
 
 export default function HomeContainer({ bustimeData, resultData, votes }: Props) {
+  // 通知権限の確認
+  useEffect(() => {
+    initNotification();
+  }, []);
+
   // 共通状態
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [previous, setPrevious] = useState<string | null>(bustimeData?.previousTime ?? null);

@@ -3,7 +3,6 @@ import { useEffect, useState, useRef, useCallback } from "react";
 
 import { ConvertBusTime } from "../types/BusTime";
 import { Result } from "../types/Result";
-import postResult from "../lib/api/result/postResult";
 import { numberTimeToString } from "../utils/numberTimeToString";
 import { stringTimeToNumber } from "../utils/stringTimeToNumber";
 
@@ -52,7 +51,13 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
     if (hasPostedRef.current) return;
     hasPostedRef.current = true;
     try {
-      await postResult(bustimeId);
+      const response = await fetch("/api/postResult", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bustimeId }),
+      });
+      if (!response.ok) throw new Error("postResult失敗");
+
       if (resultData) {
         setResultTime(numberTimeToString(resultData.BusTime));
         setResultMember(resultData.Member);

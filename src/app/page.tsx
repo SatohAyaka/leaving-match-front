@@ -3,6 +3,7 @@
 import getLatestBusTime from "../lib/api/bustime/getLatestBustime";
 import getLatestResult from "../lib/api/result/getLatestResult";
 import getVote from "../lib/api/vote/getVote";
+import AutoRefresher from "./AutoRefresher";
 import HomeContainer from "./HomeContainer";
 
 export const revalidate = 0;
@@ -36,10 +37,13 @@ export default async function Page() {
 
     // client component に props で渡す
     return (
-        <HomeContainer
-            bustimeData={bustimeData}
-            resultData={resultData}
-            votes={votes}
-        />
+        <>
+            <AutoRefresher />
+            <HomeContainer
+                bustimeData={bustimeData}
+                resultData={resultData}
+                votes={votes}
+            />
+        </>
     );
 }

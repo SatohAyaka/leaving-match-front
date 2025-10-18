@@ -62,7 +62,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
         setResultTime(numberTimeToString(resultData.BusTime));
         setResultMember(resultData.Member);
       }
-      await notifyWithSound("投票結果を保存しました");
     } catch (err) {
       console.error("postResult失敗:", err);
     }
@@ -114,6 +113,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultTime(null);
           setResultMember(null);
           setDisplayState("SELECT");
+          await notifyWithSound("投票結果を保存しました");
         } else if (bustimeData != null) {
           // endtime後 → postして無効result → ResultDisplay
           if (!hasPostedRef.current) {

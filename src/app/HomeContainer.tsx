@@ -9,7 +9,7 @@ import { stringTimeToNumber } from "../utils/stringTimeToNumber";
 import WaitingDisplay from "../components/waintingDisplay";
 import ResultDisplay from "../components/resultDisplay";
 import BusTimeDisplay from "../components/selectBustimeDisplay";
-import { notifyWithSound } from "../utils/notify/notifyWithSound";
+// import { notifyWithSound } from "../utils/notify/notifyWithSound";
 import { initNotification } from "../utils/notify/initNotification";
 
 
@@ -43,7 +43,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
   const [previousVote, setPreviousVote] = useState<number>(votes?.previous ?? 0);
   const [nearestVote, setNearestVote] = useState<number>(votes?.nearest ?? 0);
   const [nextVote, setNextVote] = useState<number>(votes?.next ?? 0);
-
 
   const hasPostedRef = useRef(false);
 
@@ -113,7 +112,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultTime(null);
           setResultMember(null);
           setDisplayState("SELECT");
-          await notifyWithSound("投票結果を保存しました");
+          // await notifyWithSound("投票結果を保存しました");
         } else if (bustimeData != null) {
           // endtime後 → postして無効result → ResultDisplay
           if (!hasPostedRef.current) {

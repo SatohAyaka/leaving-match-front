@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 
 import { ConvertBusTime } from "../types/BusTime";
-import { Result } from "../types/Result";
+import { Result, ResultResponce } from "../types/Result";
 import { numberTimeToString } from "../utils/numberTimeToString";
 import { stringTimeToNumber } from "../utils/stringTimeToNumber";
 
@@ -57,14 +57,20 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       });
       if (!response.ok) throw new Error("postResult失敗");
 
-      if (resultData) {
-        setResultTime(numberTimeToString(resultData.BusTime));
-        setResultMember(resultData.Member);
-      }
+      const newResult: ResultResponce = await response.json();
+      console.log(newResult);
+
+      const newBusTime: number = stringTimeToNumber(newResult.BusTime);
+      console.log(numberTimeToString(newBusTime));
+
+      setResultTime(numberTimeToString(newBusTime));
+      setResultMember(newResult.Member);
+      setDisplayState("RESULT");
+
     } catch (err) {
       console.error("postResult失敗:", err);
     }
-  }, [resultData]);
+  }, []);
 
   const updateData = useCallback(async () => {
     try {
@@ -118,8 +124,8 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           if (!hasPostedRef.current) {
             await handlePostAndUpdate(bustimeId);
           }
-          setResultTime(null);
-          setResultMember(null);
+          // setResultTime(null);
+          // setResultMember(null);
           setDisplayState("RESULT");
         }
       }

@@ -13,8 +13,8 @@ export default async function postResultHandler(req: NextApiRequest, res: NextAp
         if (typeof bustimeId !== "number") {
             return res.status(400).json({ error: "bustimeIdが無効です" });
         }
-        const resultId = await postResult(bustimeId);
-        res.status(200).json({ resultId });
+        const resultData = await postResult(bustimeId);
+        res.status(200).json(resultData);
     } catch (err) {
         console.error("postResult API error:", err);
         res.status(500).json({ error: "サーバー側でエラーが発生しました" });

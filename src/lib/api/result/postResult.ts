@@ -1,9 +1,11 @@
 // lib/api/result/postResult.ts
 
+import { ResultResponce } from "@/src/types/Result";
+
 const BASE_URL = process.env.LEAVING_MATCH_API;
 const ENDPOINT = process.env.LEAVING_MATCH_RESULT;
 
-export default async function postResult(bustimeId: number): Promise<number> {
+export default async function postResult(bustimeId: number): Promise<ResultResponce> {
     if (!BASE_URL || !ENDPOINT) {
         throw new Error("APIのURLが設定されていません");
     }
@@ -18,7 +20,6 @@ export default async function postResult(bustimeId: number): Promise<number> {
     if (!response.ok) {
         throw new Error("外部API呼び出しに失敗しました");
     }
-    const data = await response.json();
-    const resultId = data.result_id;
-    return resultId;
+    const resultData = await response.json();
+    return resultData;
 }

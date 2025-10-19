@@ -70,7 +70,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       const newResult: ResultResponce = await response.json();
 
       const newBusTime: number = stringTimeToNumber(newResult.BusTime);
-      console.log(numberTimeToString(newBusTime));
 
       setResultTime(numberTimeToString(newBusTime));
       setResultMember(newResult.Member);
@@ -101,7 +100,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       const nowMinutes = nowJST.getHours() * 60 + nowJST.getMinutes();
       const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
-      console.log(resultData?.dateJadge);
       if (resultData && resultData.dateJadge === false) {
         // 日付が異なる場合は無条件で WAITING
         setResultTime(null);

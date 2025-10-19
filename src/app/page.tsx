@@ -16,6 +16,7 @@ export default async function Page() {
 
     try {
         bustimeData = await getLatestBusTime();
+        console.log(bustimeData);
     } catch (err) {
         console.error("getLatestBusTime failed:", err);
     }

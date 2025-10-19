@@ -31,6 +31,8 @@ export default async function getResult(bustimeId: number): Promise<Result> {
         busTime.getMonth() === now.getMonth() &&
         busTime.getDate() === now.getDate();
 
+    console.log(isSameDate);
+
     const timeStr = data.BusTime.split("T")[1].slice(0, 5);
     const converted: Result = {
         BusTimeId: data.BusTimeId,

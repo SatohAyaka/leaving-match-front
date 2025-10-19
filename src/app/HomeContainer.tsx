@@ -82,7 +82,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
 
       // 現在時刻取得
       const now = new Date();
-      const nowMinutes = (now.getUTCHours() + 9) % 24 * 60 + now.getUTCMinutes();
+      const nowMinutes = ((now.getUTCHours() + 9) % 24) * 60 + now.getUTCMinutes();
       const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
       if (resultData && resultData.dateJadge === false) {

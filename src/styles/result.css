@@ -1,88 +1,51 @@
-.display {
-  margin: 0;
-  font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-/* 昼テーマ */
-.evening {
-  background: linear-gradient(to bottom, #d65f47, #f5caa8, #ac3018);
-}
-
-/* 夜テーマ */
-.night {
-  background: linear-gradient(to bottom, #2e1f6d, #1c2ea0, #2e1f6d);
-}
-
-.balloon {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  background-color: rgba(235, 234, 199, 0.695);
-  padding: 80px 100px;
-  border-radius: 150px;
-  font-size: 1.5rem;
-  font-weight: 500;
-  max-width: 300px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  color: black;
-}
-
-.center-box {
-  background-color: rgba(235, 234, 199, 0.695);
-  border-radius: 30px;
-  padding: 100px 150px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  color: black;
-}
-
 .time {
-  font-size: 8rem;
-  font-weight: normal;
-  display: flex;
-  align-items: center;
+    font-size: 8rem;
+    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.result-center-box {
+    background-color: rgba(235, 234, 199, 0.1);
+    border-radius: 30px;
+    padding: 100px 100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    color: black;
+
+    /* 🔽 横中央寄せ対応 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 横方向中央 */
+    justify-content: center;
+    /* 縦方向中央（お好みで） */
+    text-align: center;
+
+    height: 600px;
 }
 
 .message {
-  font-size: 80px;
-  line-height: 0.9;
-  font-weight: 700;
-  letter-spacing: -2px;
-  margin: 0;
+    font-size: 80px;
+    line-height: 0.9;
+    font-weight: 700;
+    letter-spacing: -2px;
+    margin: 0;
+    color: white;
 }
 
-/* 夜テーマ用の白文字 */
-.night .balloon,
-.night .center-box {
-  background-color: rgba(0, 0, 255, 0.2);
-  color: white;
-}
 
-.night .time,
-.night .message,
-.night .balloon {
-  color: white;
-}
-
-.vote-dots {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: calc(3 * 45px + 2 * 15px);
-  margin-left: 100px;
-}
-
-.dot {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background-color: #ffcc00;
-  /* 黄色い丸 */
-  margin: 0 30px 30px 0;
+.balloon {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background-color: rgba(235, 234, 199, 0.695);
+    padding: 75px 30px;
+    border-radius: 150px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    max-width: 500px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    color: black;
 }

@@ -36,7 +36,6 @@ export default async function getResult(bustimeId: number): Promise<Result> {
         BusTimeId: data.BusTimeId,
         BusTime: stringTimeToNumber(timeStr),
         Member: data.Member,
-        serverNow: now.toISOString().substring(11, 16),
         dateJadge: isSameDate,
     };
     return converted;

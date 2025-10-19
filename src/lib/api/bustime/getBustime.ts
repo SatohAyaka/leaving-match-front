@@ -31,7 +31,6 @@ export default async function getBusTime(bustimeId: number): Promise<ConvertBusT
         nearestTime: toJstTimeString(bustimeData[0].NearestTime),
         nextTime: toJstTimeString(bustimeData[0].NextTime),
         endTime: toJstTimeString(bustimeData[0].EndTime),
-        serverNow: new Date().toISOString()
     };
     return converted;
 }

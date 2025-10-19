@@ -21,9 +21,10 @@ export default async function getBusTime(bustimeId: number): Promise<ConvertBusT
     }
     const toJstTimeString = (isoStr: string) => {
         const date = new Date(isoStr);
-        const hour = date.getHours().toString().padStart(2, "0");
-        const minute = date.getMinutes().toString().padStart(2, "0");
-        return `${hour}:${minute}`;
+        const hour = date.getUTCHours() + 9;
+        const adjustedHour = hour >= 24 ? hour - 24 : hour;
+        const minute = date.getUTCMinutes().toString().padStart(2, "0");
+        return `${adjustedHour.toString().padStart(2, "0")}:${minute}`;
     };
     const converted: ConvertBusTime = {
         bustimeId: bustimeData[0].BusTimeId,

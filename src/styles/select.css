@@ -1,8 +1,10 @@
-.time {
+.select-time {
     font-size: 8rem;
     font-weight: normal;
     display: flex;
     align-items: center;
+    width: 800px;
+    color: white;
 }
 
 .vote-dots {
@@ -19,4 +21,22 @@
     background-color: #ffcc00;
     /* 黄色い丸 */
     margin: 0 30px 30px 0;
+}
+
+.select-center-box {
+    background-color: rgba(235, 234, 199, 0.1);
+    border-radius: 30px;
+    padding: 0px 100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    color: black;
+    height: 700px;
+}
+
+.message {
+    font-size: 80px;
+    line-height: 0.9;
+    font-weight: 700;
+    letter-spacing: -2px;
+    margin: 0;
+    color: white;
 }

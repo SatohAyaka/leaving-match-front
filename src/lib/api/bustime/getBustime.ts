@@ -1,6 +1,8 @@
 // lib/api/bustime/getBustime.ts
 
 import { ConvertBusTime, ResponseBustimeData } from '@/src/types/BusTime';
+import { numberTimeToString } from '@/src/utils/numberTimeToString';
+import { stringTimeToNumber } from '@/src/utils/stringTimeToNumber';
 
 const BASE_URL = process.env.LEAVING_MATCH_API;
 const ENDPOINT = process.env.LEAVING_MATCH_BUSTIME;
@@ -19,19 +21,17 @@ export default async function getBusTime(bustimeId: number): Promise<ConvertBusT
     if (bustimeData.length === 0) {
         throw new Error("BusTimeデータが存在しません");
     }
-    const toJstTimeString = (isoStr: string) => {
-        const date = new Date(isoStr);
-        const hour = date.getUTCHours() + 9;
-        const adjustedHour = hour >= 24 ? hour - 24 : hour;
-        const minute = date.getUTCMinutes().toString().padStart(2, "0");
-        return `${adjustedHour.toString().padStart(2, "0")}:${minute}`;
-    };
+    const convertPrevious = stringTimeToNumber(bustimeData[0].PreviousTime);
+    const convertNearest = stringTimeToNumber(bustimeData[0].NearestTime);
+    const convertNext = stringTimeToNumber(bustimeData[0].NextTime);
+    const convertEnd = stringTimeToNumber(bustimeData[0].EndTime);
+
     const converted: ConvertBusTime = {
         bustimeId: bustimeData[0].BusTimeId,
-        previousTime: toJstTimeString(bustimeData[0].PreviousTime),
-        nearestTime: toJstTimeString(bustimeData[0].NearestTime),
-        nextTime: toJstTimeString(bustimeData[0].NextTime),
-        endTime: toJstTimeString(bustimeData[0].EndTime),
+        previousTime: numberTimeToString(convertPrevious),
+        nearestTime: numberTimeToString(convertNearest),
+        nextTime: numberTimeToString(convertNext),
+        endTime: numberTimeToString(convertEnd),
     };
     return converted;
 }

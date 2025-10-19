@@ -6,8 +6,8 @@ export const stringTimeToNumber = (dateTime: string) => {
     if (dateTime.includes("T")) {
         // ISO8601形式
         const date = new Date(dateTime);
-        const jstHour = date.getHours();
-        const jstMinute = date.getMinutes();
+        const jstHour = (date.getUTCHours() + 9) % 24;
+        const jstMinute = date.getUTCMinutes();
         return jstHour * 60 + jstMinute;
     } else {
         // "HH:mm" 形式

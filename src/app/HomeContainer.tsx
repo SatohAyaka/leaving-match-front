@@ -73,7 +73,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
         return;
       }
       const bustimeId = bustimeData.bustimeId;
-      const endtime = stringTimeToNumber(bustimeData.endTime);
 
       setPreviousVote(votes?.previous ?? 0);
       setNearestVote(votes?.nearest ?? 0);
@@ -83,7 +82,8 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
 
       // 現在時刻取得
       const now = new Date();
-      const nowMinutes = now.getHours() * 60 + now.getMinutes();
+      const nowMinutes = (now.getUTCHours() + 9) % 24 * 60 + now.getUTCMinutes();
+      const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
       if (resultData && resultData.dateJadge === false) {
         // 日付が異なる場合は無条件で WAITING
@@ -107,7 +107,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setDisplayState("WAITING");
         }
       } else {
-        if (nowMinutes <= endtime) {
+        if (nowMinutes <= endTimeMinutes) {
           // endtime前 → BusTimeDisplay
           setResultTime(null);
           setResultMember(null);
@@ -121,10 +121,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultTime(null);
           setResultMember(null);
           setDisplayState("RESULT");
-        } else {
-          setResultTime(null);
-          setResultMember(null);
-          setDisplayState("WAITING");
         }
       }
     } catch (err) {

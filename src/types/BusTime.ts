@@ -10,7 +10,6 @@ export type ConvertBusTime = {
     nearestTime: string;
     nextTime: string;
     endTime: string;
-    serverNow: string;
 };
 
 export type ResponseBustimeData = {

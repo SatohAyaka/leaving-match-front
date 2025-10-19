@@ -24,19 +24,21 @@ export default async function getLatestResult(): Promise<Result | null> {
     }
     const data: ResultResponce = await response.json();
     const timeStr = data.BusTime.split("T")[1].slice(0, 5);
-    const now = new Date();
 
     const busTime = new Date(data.BusTime);
+
+    const now = new Date();
+    const nowJST = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+
     const isSameDate =
-        busTime.getFullYear() === now.getFullYear() &&
-        busTime.getMonth() === now.getMonth() &&
-        busTime.getDate() === now.getDate();
+        busTime.getFullYear() === nowJST.getUTCFullYear() &&
+        busTime.getMonth() === nowJST.getUTCMonth() &&
+        busTime.getDate() === nowJST.getUTCDate();
 
     const converted: Result = {
         BusTimeId: data.BusTimeId,
         BusTime: stringTimeToNumber(timeStr),
         Member: data.Member,
-        serverNow: now.toISOString().substring(11, 16),
         dateJadge: isSameDate,
     };
     return converted;

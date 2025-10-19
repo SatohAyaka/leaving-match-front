@@ -20,9 +20,9 @@ export default async function getVote(bustimeId: number): Promise<Vote> {
     let nextVote = 0;
 
     data.forEach(voteData => {
-        if (voteData.previous) previousVote += 1;
-        if (voteData.nearest) nearestVote += 1;
-        if (voteData.next) nextVote += 1;
+        if (voteData.Previous) previousVote += 1;
+        if (voteData.Nearest) nearestVote += 1;
+        if (voteData.Next) nextVote += 1;
     });
 
     const converted: Vote = {

@@ -1,11 +1,11 @@
 export type VoteResponse = {
-    voteId: number;
-    busTimeId: number;
-    backendUserId: number;
-    previous: boolean;
-    nearest: boolean;
-    next: boolean;
-    createdDate: string;
+    VoteId: number;
+    BusTimeId: number;
+    BackendUserId: number;
+    Previous: boolean;
+    Nearest: boolean;
+    Next: boolean;
+    CreatedDate: string;
 }
 
 export type Vote = {

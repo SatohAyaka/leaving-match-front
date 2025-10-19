@@ -1,0 +1,22 @@
+.time {
+    font-size: 8rem;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+}
+
+.vote-dots {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: calc(3 * 45px + 2 * 15px);
+    margin-left: 100px;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #ffcc00;
+    /* 黄色い丸 */
+    margin: 0 30px 30px 0;
+}

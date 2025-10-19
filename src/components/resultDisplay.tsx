@@ -1,3 +1,4 @@
+import "../styles/style.css";
 import "../styles/result.css";
 
 type Props = {
@@ -6,6 +7,7 @@ type Props = {
 };
 
 export default function ResultDisplay({ bustime, member }: Props) {
+    console.log("=== Result ===");
     return (
         <div className="display night">
             {member !== 0 && member != null && (

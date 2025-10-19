@@ -1,4 +1,6 @@
-import "../styles/result.css";
+import "../styles/style.css";
+import "../styles/select.css";
+
 type Props = {
     previous: string | null;
     nearest: string | null;
@@ -12,6 +14,7 @@ export default function BusTimeDisplay({
     previous, nearest, next,
     previousVote, nearestVote, nextVote
 }: Props) {
+    console.log("=== SELECT ===");
     const renderDots = (count: number) =>
         Array.from({ length: count }).map((_, i) => <span key={i} className="dot" />);
 

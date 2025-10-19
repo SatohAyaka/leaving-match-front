@@ -1,5 +1,7 @@
 // src/utils/notify/notifyWithSound.ts
 
+import { playSound } from "./playSound";
+
 export async function notifyWithSound(message: string, soundPath: string = "/sounds/notify.mp3") {
     try {
         // --- 通知許可チェック ---
@@ -19,10 +21,7 @@ export async function notifyWithSound(message: string, soundPath: string = "/sou
         }
 
         // --- 音声を再生 ---
-        const audio = new Audio(soundPath);
-        audio.play().catch((err) => {
-            console.warn("音声再生がブロックされました:", err);
-        });
+        await playSound(soundPath);
 
     } catch (err) {
         console.error("通知処理に失敗しました:", err);

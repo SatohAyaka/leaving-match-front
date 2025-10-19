@@ -68,7 +68,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       if (!response.ok) throw new Error("postResult失敗");
 
       const newResult: ResultResponce = await response.json();
-      console.log(newResult);
 
       const newBusTime: number = stringTimeToNumber(newResult.BusTime);
       console.log(numberTimeToString(newBusTime));
@@ -98,7 +97,8 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
 
       // 現在時刻取得
       const now = new Date();
-      const nowMinutes = ((now.getUTCHours() + 9) % 24) * 60 + now.getUTCMinutes();
+      const nowJST = new Date(now.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
+      const nowMinutes = nowJST.getHours() * 60 + nowJST.getMinutes();
       const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
       if (resultData && resultData.dateJadge === false) {

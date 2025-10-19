@@ -100,13 +100,13 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       const nowMinutes = nowJST.getHours() * 60 + nowJST.getMinutes();
       const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
-      if (resultData && resultData.dateJadge === false) {
-        // 日付が異なる場合は無条件で WAITING
-        setResultTime(null);
-        setResultMember(null);
-        setDisplayState("WAITING");
-        return;
-      }
+      // if (resultData && resultData.dateJadge === false) {
+      //   // 日付が異なる場合は無条件で WAITING
+      //   setResultTime(null);
+      //   setResultMember(null);
+      //   setDisplayState("WAITING");
+      //   return;
+      // }
 
       // result がある場合
       if (hasResult) {
@@ -115,6 +115,11 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultTime(numberTimeToString(resultData.BusTime));
           setResultMember(resultData.Member);
           setDisplayState("RESULT");
+
+          // 現在時刻が BusTime を過ぎたら WAITING に
+          if (nowMinutes >= resultData.BusTime) {
+            setDisplayState("WAITING");
+          }
         } else {
           // result.Bustime を過ぎた → WaitingDisplay
           setResultTime(null);
@@ -127,7 +132,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultTime(null);
           setResultMember(null);
           setDisplayState("SELECT");
-          // await notifyWithSound("投票結果を保存しました");
         } else if (bustimeData != null) {
           // endtime後 → postして無効result → ResultDisplay
           if (!hasPostedRef.current) {

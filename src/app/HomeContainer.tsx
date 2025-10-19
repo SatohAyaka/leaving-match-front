@@ -9,7 +9,7 @@ import { stringTimeToNumber } from "../utils/stringTimeToNumber";
 import WaitingDisplay from "../components/waintingDisplay";
 import ResultDisplay from "../components/resultDisplay";
 import BusTimeDisplay from "../components/selectBustimeDisplay";
-// import { notifyWithSound } from "../utils/notify/notifyWithSound";
+import { notifyWithSound } from "../utils/notify/notifyWithSound";
 import { initNotification } from "../utils/notify/initNotification";
 
 
@@ -45,6 +45,16 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
   const [nextVote, setNextVote] = useState<number>(votes?.next ?? 0);
 
   const hasPostedRef = useRef(false);
+
+  const prevDisplayRef = useRef<DisplayState | null>(null);
+
+  useEffect(() => {
+    // 前回が SELECT でない & 現在が SELECT の場合のみ通知
+    if (displayState === "SELECT" && prevDisplayRef.current !== "SELECT") {
+      notifyWithSound("投票画面が表示されました！");
+    }
+    prevDisplayRef.current = displayState;
+  }, [displayState]);
 
   const handlePostAndUpdate = useCallback(async (bustimeId: number) => {
     if (hasPostedRef.current) return;

@@ -7,7 +7,7 @@ const BASE_URL = process.env.LEAVING_MATCH_API;
 const ROUTER_PARAMS = process.env.LEAVING_MATCH_RESULT;
 const ENDPOINT = process.env.LATEST_ENDPOINT;
 
-export default async function getLatestResult(): Promise<Result> {
+export default async function getLatestResult(): Promise<Result | null> {
     if (!BASE_URL || !ROUTER_PARAMS || !ENDPOINT) {
         throw new Error("APIのURLが設定されていません");
     }
@@ -16,24 +16,27 @@ export default async function getLatestResult(): Promise<Result> {
 
     const response = await fetch(apiUrl);
     if (!response.ok) {
+        if (response.status === 404) {
+            console.warn("Result データが存在しません（テーブル空）");
+            return null;
+        }
         throw new Error("外部API呼び出しに失敗しました");
     }
     const data: ResultResponce = await response.json();
     const timeStr = data.BusTime.split("T")[1].slice(0, 5);
     const now = new Date();
-    const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000);
 
     const busTime = new Date(data.BusTime);
     const isSameDate =
-        busTime.getFullYear() === jstNow.getFullYear() &&
-        busTime.getMonth() === jstNow.getMonth() &&
-        busTime.getDate() === jstNow.getDate();
+        busTime.getFullYear() === now.getFullYear() &&
+        busTime.getMonth() === now.getMonth() &&
+        busTime.getDate() === now.getDate();
 
     const converted: Result = {
         BusTimeId: data.BusTimeId,
         BusTime: stringTimeToNumber(timeStr),
         Member: data.Member,
-        serverNow: jstNow.toISOString().substring(11, 16),
+        serverNow: now.toISOString().substring(11, 16),
         dateJadge: isSameDate,
     };
     return converted;

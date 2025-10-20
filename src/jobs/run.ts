@@ -66,7 +66,7 @@ export default async function runJob() {
         throw e;
     });
 
-    // await sendDMs(memberIds, bustime);
+    await sendDM(memberIds, bustime);
     await sendDM([90], bustime);
 
     console.log("=== JOB END ===");

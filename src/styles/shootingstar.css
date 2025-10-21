@@ -1,0 +1,52 @@
+/* displayの中に重ねるので、absoluteで配置する */
+#sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* クリックなどを邪魔しない */
+    z-index: 1;
+    /* 背景より前、文字より後ろにしたい場合は調整可能 */
+}
+
+/* 流れ星 */
+.shooting-star {
+    position: absolute;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(270deg, white, rgba(255, 255, 255, 0));
+    border-radius: 999px;
+    opacity: 0;
+    transform: rotate(30deg);
+    animation: shoot var(--duration, 1.5s) ease-out forwards;
+}
+
+@keyframes shoot {
+    0% {
+        width: 0;
+        /* 尾がまだ伸びていない */
+        opacity: 0;
+        /* 完全に透明 */
+        transform: translate(0, 0) rotate(30deg);
+    }
+
+    10% {
+        width: 120px;
+        /* 尾がスッと伸びる */
+        opacity: 1;
+        /* ここで明るく光る */
+    }
+
+    90% {
+        opacity: 0.8;
+        /* 少しずつ消え始める */
+    }
+
+    100% {
+        transform: translate(400px, 200px) rotate(30deg);
+        opacity: 0;
+        /* 完全に消える */
+    }
+}

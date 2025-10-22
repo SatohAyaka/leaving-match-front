@@ -2,6 +2,7 @@
 
 import { stringTimeToNumber } from '@/src/utils/stringTimeToNumber';
 import { Result, ResultResponce } from '@/src/types/Result';
+import { dateJadge } from '@/src/utils/dateJadge';
 
 const BASE_URL = process.env.LEAVING_MATCH_API;
 const ROUTER_PARAMS = process.env.LEAVING_MATCH_RESULT;
@@ -25,15 +26,7 @@ export default async function getLatestResult(): Promise<Result | null> {
     const data: ResultResponce = await response.json();
     const timeStr = data.BusTime.split("T")[1].slice(0, 5);
 
-    const busTime = new Date(data.BusTime);
-
-    const now = new Date();
-    const nowJST = new Date(now.getTime() + 9 * 60 * 60 * 1000);
-
-    const isSameDate =
-        busTime.getFullYear() === nowJST.getUTCFullYear() &&
-        busTime.getMonth() === nowJST.getUTCMonth() &&
-        busTime.getDate() === nowJST.getUTCDate();
+    const isSameDate = dateJadge(data.BusTime);
 
     const converted: Result = {
         BusTimeId: data.BusTimeId,

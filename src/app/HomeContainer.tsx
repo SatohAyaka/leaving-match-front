@@ -100,14 +100,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       const nowMinutes = nowJST.getHours() * 60 + nowJST.getMinutes();
       const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
-      // if (resultData && resultData.dateJadge === false) {
-      //   // 日付が異なる場合は無条件で WAITING
-      //   setResultTime(null);
-      //   setResultMember(null);
-      //   setDisplayState("WAITING");
-      //   return;
-      // }
-
       // result がある場合
       if (hasResult) {
         if (nowMinutes < resultData.BusTime) {
@@ -119,6 +111,13 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           // 現在時刻が BusTime を過ぎたら WAITING に
           if (nowMinutes >= resultData.BusTime) {
             setDisplayState("WAITING");
+          }
+          if (resultData.dateJadge === false) {
+            // 日付が異なる場合は無条件で WAITING
+            setResultTime(null);
+            setResultMember(null);
+            setDisplayState("WAITING");
+            return;
           }
         } else {
           // result.Bustime を過ぎた → WaitingDisplay

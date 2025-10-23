@@ -1,10 +1,9 @@
 export function dateJadge(isoTime: string): boolean {
-  const now = new Date();
-  const target = new Date(isoTime);
+  const nowJST = new Date(new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
+  const targetJST = new Date(new Date(isoTime).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
 
-  // 両方をその日の0時0分0秒にリセット
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const targetDate = new Date(target.getFullYear(), target.getMonth(), target.getDate());
+  const today = new Date(nowJST.getFullYear(), nowJST.getMonth(), nowJST.getDate());
+  const targetDate = new Date(targetJST.getFullYear(), targetJST.getMonth(), targetJST.getDate());
 
   return targetDate.getTime() == today.getTime();
 }

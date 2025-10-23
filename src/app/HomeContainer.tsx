@@ -100,6 +100,8 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       const nowMinutes = nowJST.getHours() * 60 + nowJST.getMinutes();
       const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
+      console.log(resultData?.dateJadge);
+
       // result がある場合
       if (hasResult) {
         if (nowMinutes < resultData.BusTime) {

@@ -13,7 +13,7 @@ export default async function getLatestBusTime(): Promise<ConvertBusTime> {
     }
     const apiUrl = new URL(`${BASE_URL}${ROUTER_PARAMS}${ENDPOINT}`);
 
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, { cache: "no-store" });
     if (!response.ok) {
         throw new Error(`外部API呼び出しに失敗しました: ${response.status}`);
     }

@@ -15,7 +15,7 @@ export default async function getLatestResult(): Promise<Result | null> {
 
     const apiUrl = new URL(`${BASE_URL}${ROUTER_PARAMS}${ENDPOINT}`);
 
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, { cache: "no-store" });
     if (!response.ok) {
         if (response.status === 404) {
             console.warn("Result データが存在しません（テーブル空）");

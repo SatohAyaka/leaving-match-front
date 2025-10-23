@@ -12,7 +12,7 @@ export default async function getBusTime(bustimeId: number): Promise<ConvertBusT
         throw new Error("APIのURLが設定されていません");
     }
     const apiUrl = new URL(`${BASE_URL}${ENDPOINT}/${bustimeId}`);
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, { cache: "no-store" });
     if (!response.ok) {
         throw new Error(`外部API呼び出しに失敗しました: ${response.status}`);
     }

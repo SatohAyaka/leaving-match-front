@@ -111,8 +111,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           // 現在時刻が BusTime を過ぎたら WAITING に
           if (nowMinutes >= resultData.BusTime) {
             setDisplayState("WAITING");
-          }
-          if (resultData.dateJadge === false) {
+          } else if (resultData.dateJadge === false) {
             // 日付が異なる場合は無条件で WAITING
             setResultTime(null);
             setResultMember(null);

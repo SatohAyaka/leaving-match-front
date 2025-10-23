@@ -6,6 +6,5 @@ export function dateJadge(isoTime: string): boolean {
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const targetDate = new Date(target.getFullYear(), target.getMonth(), target.getDate());
 
-  // targetが未来の日付ならtrue
-  return targetDate.getTime() > today.getTime();
+  return targetDate.getTime() == today.getTime();
 }

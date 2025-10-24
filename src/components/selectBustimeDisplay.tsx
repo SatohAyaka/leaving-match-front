@@ -2,9 +2,9 @@ import "../styles/style.css";
 import "../styles/select.css";
 
 type Props = {
-    previous: string | null;
-    nearest: string | null;
-    next: string | null;
+    previous: string | undefined;
+    nearest: string | undefined;
+    next: string | undefined;
     previousVote: number;
     nearestVote: number;
     nextVote: number;

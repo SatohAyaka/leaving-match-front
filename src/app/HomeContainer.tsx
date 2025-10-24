@@ -28,12 +28,9 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
   }, []);
 
   // 共通状態
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [previous, setPrevious] = useState<string | null>(bustimeData?.previousTime ?? null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [nearest, setNearest] = useState<string | null>(bustimeData?.nearestTime ?? null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [next, setNext] = useState<string | null>(bustimeData?.nextTime ?? null);
+  const previous = bustimeData?.previousTime;
+  const nearest = bustimeData?.nearestTime;
+  const next = bustimeData?.nextTime;
 
   console.log(previous, nearest, next);
 

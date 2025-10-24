@@ -35,6 +35,8 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [next, setNext] = useState<string | null>(bustimeData?.nextTime ?? null);
 
+  console.log(previous, nearest, next);
+
   const [resultTime, setResultTime] = useState<string | null>(numberTimeToString(resultData?.BusTime ?? 0));
   const [resultMember, setResultMember] = useState<number | null>(resultData?.Member ?? 0);
 

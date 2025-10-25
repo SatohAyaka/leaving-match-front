@@ -107,6 +107,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           // → ResultDisplay
           setResultTime(numberTimeToString(resultData.BusTime));
           setResultMember(resultData.Member);
+          console.log("nowMinutes < resultData.BusTime");
           setDisplayState("RESULT");
 
           // 現在時刻が BusTime を過ぎたら WAITING に
@@ -138,6 +139,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           }
           // setResultTime(null);
           // setResultMember(null);
+          console.log("postResult");
           setDisplayState("RESULT");
         }
       }

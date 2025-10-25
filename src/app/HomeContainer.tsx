@@ -118,7 +118,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
             setResultTime(null);
             setResultMember(null);
             setDisplayState("WAITING");
-            hasPostedRef.current = false;
             return;
           }
         } else {
@@ -126,6 +125,8 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultTime(null);
           setResultMember(null);
           setDisplayState("WAITING");
+          hasPostedRef.current = false;
+          console.log(hasPostedRef);
         }
       } else {
         if (nowMinutes <= endTimeMinutes) {

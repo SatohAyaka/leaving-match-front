@@ -103,25 +103,19 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
 
       // result がある場合
       if (hasResult) {
-        if (nowMinutes < resultData.BusTime) {
+        if (resultData.dateJadge === false) {
+          // 日付が異なる場合は無条件で WAITING
+          setResultTime(null);
+          setResultMember(null);
+          setDisplayState("WAITING");
+          return;
+
+        } else if (nowMinutes < resultData.BusTime) {
           // → ResultDisplay
           setResultTime(numberTimeToString(resultData.BusTime));
           setResultMember(resultData.Member);
-          console.log("nowMinutes < resultData.BusTime");
           setDisplayState("RESULT");
 
-          // 現在時刻が BusTime を過ぎたら WAITING に
-          if (nowMinutes >= resultData.BusTime) {
-            setDisplayState("WAITING");
-            hasPostedRef.current = false;
-            console.log(hasPostedRef);
-          } else if (resultData.dateJadge === false) {
-            // 日付が異なる場合は無条件で WAITING
-            setResultTime(null);
-            setResultMember(null);
-            setDisplayState("WAITING");
-            return;
-          }
         } else {
           // result.Bustime を過ぎた → WaitingDisplay
           setResultTime(null);
@@ -136,13 +130,10 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultMember(null);
           setDisplayState("SELECT");
         } else if (bustimeData != null) {
-          console.log(hasPostedRef);
           // endtime後 → postして無効result → ResultDisplay
           if (!hasPostedRef.current) {
             await handlePostAndUpdate(bustimeId);
           }
-          // setResultTime(null);
-          // setResultMember(null);
           setDisplayState("RESULT");
         }
       }

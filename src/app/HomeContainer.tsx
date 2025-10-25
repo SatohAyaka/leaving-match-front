@@ -133,13 +133,13 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultMember(null);
           setDisplayState("SELECT");
         } else if (bustimeData != null) {
+          console.log(hasPostedRef);
           // endtime後 → postして無効result → ResultDisplay
           if (!hasPostedRef.current) {
             await handlePostAndUpdate(bustimeId);
           }
           // setResultTime(null);
           // setResultMember(null);
-          console.log("postResult");
           setDisplayState("RESULT");
         }
       }

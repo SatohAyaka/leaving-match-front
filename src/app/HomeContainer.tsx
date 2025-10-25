@@ -118,6 +118,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
             setResultTime(null);
             setResultMember(null);
             setDisplayState("WAITING");
+            hasPostedRef.current = false;
             return;
           }
         } else {

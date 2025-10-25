@@ -113,6 +113,8 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           // 現在時刻が BusTime を過ぎたら WAITING に
           if (nowMinutes >= resultData.BusTime) {
             setDisplayState("WAITING");
+            hasPostedRef.current = false;
+            console.log(hasPostedRef);
           } else if (resultData.dateJadge === false) {
             // 日付が異なる場合は無条件で WAITING
             setResultTime(null);
@@ -126,7 +128,6 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultMember(null);
           setDisplayState("WAITING");
           hasPostedRef.current = false;
-          console.log(hasPostedRef);
         }
       } else {
         if (nowMinutes <= endTimeMinutes) {

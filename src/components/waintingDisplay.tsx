@@ -18,7 +18,7 @@ export default function WaitingDisplay() {
 
             // ランダム位置
             const startTop = Math.random() * (window.innerHeight / 3);
-            const startLeft = Math.random() * (window.innerWidth * 0.4);
+            const startLeft = Math.random() * (window.innerWidth * 0.8);
             star.style.top = `${startTop}px`;
             star.style.left = `${startLeft}px`;
             star.style.animationDelay = `${Math.random() * 2}s`;

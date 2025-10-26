@@ -9,16 +9,15 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-}
 
-/* 昼テーマ */
-.evening {
-  background: linear-gradient(to bottom, #d65f47, #f5caa8, #ac3018);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* 夜テーマ */
 .night {
-  background: linear-gradient(to bottom, #2e1f6d, #1c2ea0, #2e1f6d);
+  background-image: url("/image.png");
 }
 
 /* 夜テーマ用の白文字 */

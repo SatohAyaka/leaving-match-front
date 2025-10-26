@@ -16,7 +16,7 @@
     position: absolute;
     width: 120px;
     height: 2px;
-    background: linear-gradient(270deg, white, rgba(255, 255, 255, 0));
+    background: linear-gradient(270deg, #DBC8A5, rgba(255, 255, 255, 0));
     border-radius: 999px;
     opacity: 0;
     transform: rotate(30deg);

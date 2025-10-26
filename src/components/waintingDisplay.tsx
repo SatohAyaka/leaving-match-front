@@ -17,8 +17,8 @@ export default function WaitingDisplay() {
             star.classList.add("shooting-star");
 
             // ランダム位置
-            const startTop = Math.random() * window.innerHeight * 0.6;
-            const startLeft = Math.random() * window.innerWidth * 0.8;
+            const startTop = Math.random() * (window.innerHeight / 3);
+            const startLeft = Math.random() * (window.innerWidth * 0.4);
             star.style.top = `${startTop}px`;
             star.style.left = `${startLeft}px`;
             star.style.animationDelay = `${Math.random() * 2}s`;

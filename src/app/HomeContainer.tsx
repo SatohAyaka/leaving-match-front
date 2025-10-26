@@ -44,10 +44,16 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
   const [nextVote, setNextVote] = useState<number>(votes?.next ?? 0);
 
   const hasPostedRef = useRef(false);
-
   const prevDisplayRef = useRef<DisplayState | null>(null);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      prevDisplayRef.current = displayState; // 初期状態をセット
+      return; // 初回は通知しない
+    }
+
     // 前回が SELECT でない & 現在が SELECT の場合のみ通知
     if (displayState === "SELECT" && prevDisplayRef.current !== "SELECT") {
       notifyWithSound("投票画面が表示されました！");

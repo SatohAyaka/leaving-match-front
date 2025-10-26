@@ -12,6 +12,20 @@ export default function WaitingDisplay() {
 
         if (!sky) return;
 
+        function isNightTime() {
+            const now = new Date();
+            const hoursJST = (now.getUTCHours() + 9) % 24;
+            return hoursJST >= 23 || hoursJST < 8;
+        }
+
+        if (isNightTime()) {
+            sky.classList.add("night-mode");
+        } else {
+            sky.classList.remove("night-mode");
+        }
+
+        if (isNightTime()) return;
+
         function createShootingStar() {
             const star = document.createElement("div");
             star.classList.add("shooting-star");

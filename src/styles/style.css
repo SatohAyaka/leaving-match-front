@@ -32,3 +32,17 @@
 .night .balloon {
   color: white;
 }
+
+/* 黒く覆うオーバーレイ */
+#sky.night-mode {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-image: none;
+  z-index: 5;
+  /* 他の要素より前に出す */
+  pointer-events: none;
+}

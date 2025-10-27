@@ -121,13 +121,13 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
           setResultTime(numberTimeToString(resultData.BusTime));
           setResultMember(resultData.Member);
           setDisplayState("RESULT");
+          hasPostedRef.current = false;
 
         } else {
           // result.Bustime を過ぎた → WaitingDisplay
           setResultTime(null);
           setResultMember(null);
           setDisplayState("WAITING");
-          hasPostedRef.current = false;
         }
       } else {
         if (nowMinutes <= endTimeMinutes) {

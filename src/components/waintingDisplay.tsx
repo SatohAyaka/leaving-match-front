@@ -18,34 +18,43 @@ export default function WaitingDisplay() {
             return hoursJST >= 23 || hoursJST < 7;
         }
 
-        if (isNightTime()) {
-            sky.classList.add("night-mode");
-        } else {
-            sky.classList.remove("night-mode");
-        }
-
-        if (isNightTime()) return;
-
-        function createShootingStar() {
-            const star = document.createElement("div");
-            star.classList.add("shooting-star");
-
-            // ランダム位置
-            const startTop = Math.random() * (window.innerHeight / 3);
-            const startLeft = Math.random() * (window.innerWidth * 0.8);
-            star.style.top = `${startTop}px`;
-            star.style.left = `${startLeft}px`;
-            star.style.animationDelay = `${Math.random() * 2}s`;
-
-            if (sky == null) {
-                return;
+        function updateNightMode() {
+            if (!sky) return;
+            if (isNightTime()) {
+                sky.classList.add("night-mode");
+            } else {
+                sky.classList.remove("night-mode");
             }
-            sky.appendChild(star);
-            setTimeout(() => star.remove(), 2000);
         }
 
-        const interval = setInterval(createShootingStar, 1200);
-        return () => clearInterval(interval);
+        updateNightMode();
+        const nightCheck = setInterval(updateNightMode, 60000);
+
+        if (!isNightTime()) {
+            function createShootingStar() {
+                if (!sky) return;
+                const star = document.createElement("div");
+                star.classList.add("shooting-star");
+
+                const startTop = Math.random() * (window.innerHeight / 3);
+                const startLeft = Math.random() * (window.innerWidth * 0.8);
+                star.style.top = `${startTop}px`;
+                star.style.left = `${startLeft}px`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+
+                sky.appendChild(star);
+                setTimeout(() => star.remove(), 2000);
+            }
+
+            const starInterval = setInterval(createShootingStar, 1200);
+
+            return () => {
+                clearInterval(starInterval);
+                clearInterval(nightCheck);
+            };
+        }
+
+        return () => clearInterval(nightCheck);
     }, []);
 
     return <div id="sky" className={`display night`}></div>;

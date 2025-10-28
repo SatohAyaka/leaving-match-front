@@ -15,7 +15,7 @@ export default function WaitingDisplay() {
         function isNightTime() {
             const now = new Date();
             const hoursJST = (now.getUTCHours() + 9) % 24;
-            return hoursJST >= 23 || hoursJST < 8;
+            return hoursJST >= 23 || hoursJST < 7;
         }
 
         if (isNightTime()) {

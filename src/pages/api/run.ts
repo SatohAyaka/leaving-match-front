@@ -3,16 +3,15 @@ import runJob from "../../jobs/run";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const ua = req.headers["user-agent"] || "";
-    const forwardedFor = req.headers["x-forwarded-for"] || "";
+    const auth = req.headers["authorization"];
+    const token = process.env.CRON_SECRET;
 
-    // GitHub Actions以外をブロック
-    const isGithubActions =
-        ua.includes("curl/") && typeof forwardedFor === "string" && forwardedFor.startsWith("4.");
-
-    if (!isGithubActions) {
-        console.log("Blocked request:", { ua, forwardedFor });
-        return res.status(403).json({ error: "Forbidden: only GitHub Actions allowed" });
+    if (!auth || auth !== `Bearer ${token}`) {
+        console.log("Blocked request:", {
+            ua: req.headers["user-agent"],
+            forwardedFor: req.headers["x-forwarded-for"],
+        });
+        return res.status(403).json({ error: "Forbidden: invalid token" });
     }
 
     console.log("=== Github Actions ===");

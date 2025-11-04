@@ -19,4 +19,5 @@ jobs:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
           curl -X GET \
+            -H "Authorization: Bearer $CRON_SECRET" \
             https://leaving-match.vercel.app/api/run

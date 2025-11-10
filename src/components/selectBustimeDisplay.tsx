@@ -27,9 +27,11 @@ export default function BusTimeDisplay({
                 <div className="select-time">2. {nearest}
                     <div className="vote-dots">{renderDots(nearestVote)}</div>
                 </div>
-                <div className="select-time">3. {next}
-                    <div className="vote-dots">{renderDots(nextVote)}</div>
-                </div>
+                {next !== "00:00" && (
+                    <div className="select-time">3. {next}
+                        <div className="vote-dots">{renderDots(nextVote)}</div>
+                    </div>
+                )}
                 <div className="message">のバスに乗りませんか？</div>
             </div>
         </div>

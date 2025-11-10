@@ -9,6 +9,7 @@ export async function findNearBuses(averageMinutes: number): Promise<SelectBusTi
     let previous: number = 0;
     let nearest: number = 0;
     let next: number = 0;
+    let tmp: number = 0;
 
     let minDiff = Infinity;
 
@@ -22,6 +23,12 @@ export async function findNearBuses(averageMinutes: number): Promise<SelectBusTi
             previous = i > 0 ? allTimes[i - 1].busTime : 0;
             next = i < allTimes.length - 1 ? allTimes[i + 1].busTime : 0;
         }
+    }
+    if (previous == 0) {
+        tmp = previous;
+        previous = nearest;
+        nearest = next;
+        next = tmp;
     }
     console.log(previous, nearest, next);
     const bustime: SelectBusTime = {

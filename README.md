@@ -36,5 +36,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 
-audio in this system use 「音読さん」.
+audio in this system Created By ondoku3.com
 音声合成機能には「音読さん」を利用しています．

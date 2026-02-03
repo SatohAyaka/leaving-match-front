@@ -43,7 +43,7 @@ export default async function testJob() {
     //     return { status: "skip", reason: "members diff == 30" };
     // }
     // const average = getAverage(members, sored);
-    const average = 1215;
+    const average = 1225;
     // if (average == 0) {
     //     return { status: "skip", reason: "average == 0" };
     // }

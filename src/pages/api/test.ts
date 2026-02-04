@@ -1,5 +1,5 @@
 // pages/api/run.ts
-import testJob from "@/src/jobs/test";
+import testJob from "@/src/test/jobs/test";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

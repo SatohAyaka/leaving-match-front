@@ -103,7 +103,7 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       const nowJST = new Date(now.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
       const nowMinutes = (nowJST.getHours() + 7) * 60 + nowJST.getMinutes();
       //ここも一旦固定(12:20)
-      const endTimeMinutes = 740;
+      const endTimeMinutes = 750;
       // const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
       console.log(resultData?.dateJadge);
@@ -116,7 +116,9 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
         //   setResultMember(null);
         //   setDisplayState("WAITING");
         //   return;
-        if (nowMinutes < resultData.BusTime) {
+        //ここも、いじる
+        // if (nowMinutes < resultData.BusTime) {
+        if (nowMinutes < 1170) {
           // } else if (nowMinutes < resultData.BusTime) {
           // → ResultDisplay
           setResultTime(numberTimeToString(resultData.BusTime));

@@ -102,7 +102,9 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
       const now = new Date();
       const nowJST = new Date(now.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
       const nowMinutes = (nowJST.getHours() + 7) * 60 + nowJST.getMinutes();
-      const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
+      //ここも一旦固定(12:20)
+      const endTimeMinutes = 740;
+      // const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
       console.log(resultData?.dateJadge);
 

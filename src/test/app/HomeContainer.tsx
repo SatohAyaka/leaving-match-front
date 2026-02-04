@@ -98,11 +98,11 @@ export default function HomeContainer({ bustimeData, resultData, votes }: Props)
 
       const hasResult = resultData != null && resultData.BusTimeId === bustimeId && resultData.BusTime !== 0;
 
-      // 現在時刻＋8時間取得
+      // 現在時刻＋7時間取得
       const now = new Date();
       const nowJST = new Date(now.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
-      const nowMinutes = (nowJST.getHours() + 8) * 60 + nowJST.getMinutes();
-      const endTimeMinutes = stringTimeToNumber(bustimeData.endTime) - (8 * 60);
+      const nowMinutes = (nowJST.getHours() + 7) * 60 + nowJST.getMinutes();
+      const endTimeMinutes = stringTimeToNumber(bustimeData.endTime);
 
       console.log(resultData?.dateJadge);
 

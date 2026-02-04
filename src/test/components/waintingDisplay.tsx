@@ -1,8 +1,8 @@
 "use client";
 
-import "../styles/style.css";
+import "@/src/styles/style.css";
 import { useEffect } from "react";
-import "../styles/shootingstar.css";
+import "@/src/styles/shootingstar.css";
 
 
 export default function WaitingDisplay() {

@@ -3,14 +3,24 @@
 import getLatestBusTime from "../lib/api/bustime/getLatestBustime";
 import getLatestResult from "../lib/api/result/getLatestResult";
 import getVote from "../lib/api/vote/getVote";
+import HomeContainer from "../test/app/HomeContainer";
+import { ConvertBusTime } from "../types/BusTime";
 import AutoRefresher from "./AutoRefresher";
-import HomeContainer from "./HomeContainer";
+// import HomeContainer from "./HomeContainer";
 
 export const revalidate = 0;
 
+const DEFAULT_BUSTIME_DATA: ConvertBusTime = {
+    bustimeId: 0,
+    previousTime: "0:00",
+    nearestTime: "0:00",
+    nextTime: "0:00",
+    endTime: "0:00",
+};
+
 export default async function Page() {
     // サーバー側でデータ取得
-    let bustimeData = null;
+    let bustimeData = DEFAULT_BUSTIME_DATA;
     let resultData = null;
     let votes = null;
 

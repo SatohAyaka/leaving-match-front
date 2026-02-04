@@ -11,8 +11,8 @@ export default async function testJob() {
     //メンバを自分に
     const memberIds = [90];
 
-    //ここは夕方の時刻に（一旦19:00）
-    const average = 1140;
+    //ここは夕方の時刻に（一旦19:30）
+    const average = 1170;
 
     const recommended: Recommended = await postRecommended(average, memberIds).catch((e) => {
         console.error("postRecommended error:", e);

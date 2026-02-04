@@ -1,7 +1,5 @@
-import "../styles/style.css";
-import "../styles/result.css";
-import { stringTimeToNumber } from "@/src/utils/stringTimeToNumber";
-import { numberTimeToString } from "@/src/utils/numberTimeToString";
+import "@/src/styles/style.css";
+import "@/src/styles/result.css";
 
 type Props = {
     bustime: string;
@@ -10,8 +8,6 @@ type Props = {
 
 export default function ResultDisplay({ bustime, member }: Props) {
     console.log("=== Result ===");
-    const numberBusTime = stringTimeToNumber(bustime);
-    const editBusTime = numberTimeToString(numberBusTime + (8 * 60));
     return (
         <div className="display night">
             {member !== 0 && member != null && (
@@ -21,7 +17,7 @@ export default function ResultDisplay({ bustime, member }: Props) {
                 </div>
             )}
             <div className="result-center-box">
-                <div className="time">{editBusTime}</div>
+                <div className="time">{bustime}</div>
                 <div className="message">のバスに乗りませんか？</div>
             </div>
         </div>
